@@ -25,7 +25,7 @@ SECRET_KEY = 'wb_l^$d_1m9qvf$fd@g=gnrtt2a&#6)#=0rz9r%y7$f(4!eh^*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.99.100', 'localhost']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -75,8 +75,11 @@ WSGI_APPLICATION = 'infooverflow.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'HOST': 'db',
+        'PORT': 5432,
     }
 }
 
