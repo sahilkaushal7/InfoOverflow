@@ -1,12 +1,44 @@
-import React from 'react';
-import { Header } from './app/layouts/MainLayout/Header';
+import React, { Dispatch } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import BaseRouter from './app/routes';
+import { connect } from 'react-redux';
+import * as actions from './store/actions/auth';
+import { State } from './store/types';
+import { ThunkDispatch } from 'redux-thunk';
 
-const App: React.FC = () => {
-  return (
-    <div className="App">
-      <Header />
-    </div>
-  );
+interface AppProps {
+  onTryAutoSignUp: any;
 }
 
-export default App;
+class App extends React.Component<AppProps> {
+
+  componentDidMount() {
+    this.props.onTryAutoSignUp();
+  }
+
+  render() {
+    return (
+      <div className="App" >
+        <Router>
+          <BaseRouter />
+        </Router>
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = (state: State) => {
+  return {
+    isAuthenticated: state.token !== null,
+    isLoading: state.loading
+  }
+}
+
+type dipatchAuthCheck = ThunkDispatch<State, {}, any> & Dispatch<any>;
+const mapDispatchToProp = (dispatch: dipatchAuthCheck) => {
+  return {
+    onTryAutoSignUp: () => dispatch(actions.authCheckState())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProp)(App);
