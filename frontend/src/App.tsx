@@ -1,10 +1,9 @@
-import React, { Dispatch } from 'react';
+import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import BaseRouter from './app/routes';
 import { connect } from 'react-redux';
 import * as actions from './store/actions/auth';
-import { State } from './store/types';
-import { ThunkDispatch } from 'redux-thunk';
+import { State, DispatchType } from './store/types';
 
 interface AppProps {
   onTryAutoSignUp: any;
@@ -34,10 +33,9 @@ const mapStateToProps = (state: State) => {
   }
 }
 
-type dipatchAuthCheck = ThunkDispatch<State, {}, any> & Dispatch<any>;
-const mapDispatchToProp = (dispatch: dipatchAuthCheck) => {
+const mapDispatchToProp = (dispatch: DispatchType) => {
   return {
-    onTryAutoSignUp: () => dispatch(actions.authCheckState())
+    onTryAutoSignUp: () => dispatch(actions.authCheckState()),
   }
 }
 

@@ -1,9 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../../../store/actions/auth';
-import { State } from '../../../../store/types';
-import { Dispatch } from 'redux';
-import { ThunkDispatch } from 'redux-thunk';
+import { State, DispatchType } from '../../../../store/types';
 
 interface HeaderProps {
   userLogin: (email: string, password: string) => void;
@@ -40,9 +38,7 @@ const mapStateToProps = (state: State) => {
   }
 }
 
-type dipatchAuthLogin = ThunkDispatch<State, {}, any> & Dispatch<any>;
-
-const mapDispatchToProps = (dispatch: dipatchAuthLogin) => {
+const mapDispatchToProps = (dispatch: DispatchType) => {
   return {
     userLogin: (email: string, password: string) => (dispatch(actions.authLogin(email, password)))
   }
