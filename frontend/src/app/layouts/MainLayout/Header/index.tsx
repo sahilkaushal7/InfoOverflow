@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 interface PropsFromDispatch {
   userLogin: (email: string, password: string) => void;
+  logout: () => void;
 }
 
 interface PropsFromState {
@@ -20,13 +21,13 @@ interface HeaderState {}
 
 class Header extends React.Component<HeaderProps, HeaderState> {
   render() {
-    const { isAuthenticated } = this.props;
+    const { isAuthenticated, logout } = this.props;
     return (
       <div>
         <p>
           {!isAuthenticated ? <Link to={'login'} >Login</Link> : <Link to={'user'}>User Profile</Link>}
         </p>
-        <p>{isAuthenticated}</p>
+        <p onClick={() => logout()}>Logout</p>
         <p>
           <Link to={'/'} >Home</Link>
         </p>
@@ -45,7 +46,8 @@ const mapStateToProps = (state: State) => {
 
 const mapDispatchToProps = (dispatch: DispatchType) => {
   return {
-    userLogin: (email: string, password: string) => (dispatch(actions.authLogin(email, password)))
+    userLogin: (email: string, password: string) => (dispatch(actions.authLogin(email, password))),
+    logout: () => (dispatch(actions.authLogout)),
   }
 }
 
