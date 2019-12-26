@@ -6,6 +6,7 @@ import Login from './views/Login';
 import { State, DispatchType } from '../store/types';
 import * as actions from '../store/actions/auth';
 import { connect } from 'react-redux';
+import UserAccount from './views/UserAccount';
 
 // const PrivateRoute = ({ component, isAuth, ...rest }) => (
 //   isAuth ? <Route {...rest} component={component}/> :
@@ -27,6 +28,7 @@ class BaseRouter extends React.Component<BaseRouterProps, BaseRouterState> {
       <MainLayout>
         <Route exact path='/' component={Landing} />
         <Route exact path='/login' render={() => <Login userLogin={userLogin}/>} />
+        <Route exact path='/user' component={UserAccount} />
         {/* <PrivateRoute exact isAuth={props.isAuthenticated} path='/articles/:articleID' component={Article} />
         <PrivateRoute exact isAuth={props.isAuthenticated} path='/articles' component={Articles} />
         <PrivateRoute exact isAuth={props.isAuthenticated} path='/create' component={CreateArticle} /> */}

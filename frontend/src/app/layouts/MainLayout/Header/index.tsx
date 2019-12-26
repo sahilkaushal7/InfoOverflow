@@ -4,17 +4,29 @@ import * as actions from '../../../../store/actions/auth';
 import { State, DispatchType } from '../../../../store/types';
 import { Link } from 'react-router-dom';
 
-interface HeaderProps {
+interface PropsFromDispatch {
   userLogin: (email: string, password: string) => void;
 }
 
-class Header extends React.Component<HeaderProps> {
+interface PropsFromState {
+  isAuthenticated: boolean;
+}
+
+interface HeaderProps extends PropsFromDispatch, PropsFromState {
+
+}
+
+interface HeaderState {}
+
+class Header extends React.Component<HeaderProps, HeaderState> {
   render() {
+    const { isAuthenticated } = this.props;
     return (
       <div>
         <p>
-          <Link to={'login'} >Login</Link>
+          {!isAuthenticated ? <Link to={'login'} >Login</Link> : <Link to={'user'}>User Profile</Link>}
         </p>
+        <p>{isAuthenticated}</p>
         <p>
           <Link to={'/'} >Home</Link>
         </p>
@@ -26,7 +38,8 @@ class Header extends React.Component<HeaderProps> {
 const mapStateToProps = (state: State) => {
   return {
     isLoading: state.loading,
-    error: state.error
+    error: state.error,
+    isAuthenticated: Boolean(state.token),
   }
 }
 

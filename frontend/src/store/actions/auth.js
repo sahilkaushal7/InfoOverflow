@@ -45,7 +45,7 @@ export const authLogin = (email, password) => {
       password: password,
     })
       .then(res => {
-        const token = res.data.key;
+        const token = res.data.token;
         const email = res.data.email;
         const name = res.data.name;
         const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
