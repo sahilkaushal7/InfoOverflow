@@ -1,20 +1,20 @@
-import { AUTH_FAIL, AUTH_START, AUTH_SUCCESS, AUTH_LOGOUT } from './actions/actionTypes';
+import { EReduxActionTypes } from './actions/actionTypes';
 import { ActionCreatorsMapObject, Dispatch } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 
+export interface Error {
+  message: string;
+}
 export interface State {
-  error: string;
+  error: Error | null;
   loading: boolean;
-  token: string;
+  token: string | null;
   username: string;
   useremail: string;
 }
 
 export const Actions = Object.assign(
-  AUTH_START,
-  AUTH_SUCCESS,
-  AUTH_FAIL,
-  AUTH_LOGOUT
+  EReduxActionTypes
 )
 
 export type ActionUnion<T extends ActionCreatorsMapObject> = ReturnType<T[keyof T]>;

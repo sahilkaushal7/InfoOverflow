@@ -1,15 +1,15 @@
-import * as actionTypes from './actionTypes';
+import { EReduxActionTypes } from './actionTypes';
 import axios from 'axios';
 
 export const authStart = () => {
   return {
-    type: actionTypes.AUTH_START,
+    type: EReduxActionTypes.AUTH_START,
   }
 }
 
 export const authSuccess = (token, email, name) => {
   return {
-    type: actionTypes.AUTH_SUCCESS,
+    type: EReduxActionTypes.AUTH_SUCCESS,
     token: token,
     username: name,
     useremail: email
@@ -18,7 +18,7 @@ export const authSuccess = (token, email, name) => {
 
 export const authFail = (error) => {
   return {
-    type: actionTypes.AUTH_FAIL,
+    type: EReduxActionTypes.AUTH_FAIL,
     error: error,
   }
 }
@@ -27,7 +27,7 @@ export const authLogout = () => {
   localStorage.removeItem('token');
   localStorage.removeItem('expirationDate');
   return {
-    type: actionTypes.AUTH_LOGOUT,
+    type: EReduxActionTypes.AUTH_LOGOUT,
   }
 }
 
