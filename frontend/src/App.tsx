@@ -4,6 +4,7 @@ import BaseRouter from './app/routes';
 import { connect } from 'react-redux';
 import * as actions from './store/actions/auth';
 import { State, DispatchType } from './store/types';
+import './styles/main.scss';
 
 interface AppProps {
   onTryAutoSignUp: any;

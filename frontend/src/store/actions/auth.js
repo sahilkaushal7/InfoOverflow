@@ -11,8 +11,8 @@ export const authSuccess = (token, email, name) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
     token: token,
-    name: name,
-    email: email
+    username: name,
+    useremail: email
   }
 }
 
@@ -54,7 +54,6 @@ export const authLogin = (email, password) => {
         localStorage.setItem('email', email);
         localStorage.setItem('name', name);
         dispatch(authSuccess(token, email, name));
-        debugger;
         checkAuthTimeout();
       })
       .catch(err => dispatch(authFail(err)))

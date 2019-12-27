@@ -1,5 +1,4 @@
-$background-color: white;
-$header-color: #f9f9f9;
+@import '../../../styles/abstracts/variables';
 
 .io-ml {
   width: 100%;
@@ -14,7 +13,7 @@ $header-color: #f9f9f9;
   height: 2000px;
   margin-left: 20%;
   width: 100%;
-  background: $background-color;
+  background: $bg-color;
 } 
 
 .io-ml__header {
@@ -28,14 +27,6 @@ $header-color: #f9f9f9;
   height: 100%;
   background: transparent;
 
-  div {
-    padding: 5px 45px 5px 5px;
-
-    input {
-      width: 100%;
-    }
-  }
-
   &::after {
     position: absolute;
     top: 0;
@@ -44,8 +35,21 @@ $header-color: #f9f9f9;
     display: block;
     height: 100%;
     width: 40px;
-    background: $background-color;
+    background: $bg-color;
     border-top-left-radius: 40px;
     border-bottom-left-radius: 40px;
+  }
+
+  .io-ml__header-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px 45px 5px 5px;
+    color: $primary;
+
+
+    input {
+      width: 100%;
+    }
   }
 }

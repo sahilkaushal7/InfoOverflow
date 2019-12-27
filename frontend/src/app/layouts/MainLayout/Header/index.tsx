@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../../../store/actions/auth';
 import { State, DispatchType } from '../../../../store/types';
-import { Link } from 'react-router-dom';
+import cn from 'classnames';
+import { IOLink } from '../../../../lib/elements';
 
 interface PropsFromDispatch {
   userLogin: (email: string, password: string) => void;
@@ -11,25 +12,28 @@ interface PropsFromDispatch {
 
 interface PropsFromState {
   isAuthenticated: boolean;
+  username: string;
+  useremail: string;
+  isLoading: boolean;
 }
 
 interface HeaderProps extends PropsFromDispatch, PropsFromState {
 
 }
 
-interface HeaderState {}
+interface HeaderState { }
 
 class Header extends React.Component<HeaderProps, HeaderState> {
   render() {
-    const { isAuthenticated, logout } = this.props;
+    const { isAuthenticated, logout, username, useremail, isLoading } = this.props;
     return (
-      <div>
-        <p>
-          {!isAuthenticated ? <Link to={'login'} >Login</Link> : <Link to={'user'}>User Profile</Link>}
-        </p>
-        <p onClick={() => logout()}>Logout</p>
-        <p>
-          <Link to={'/'} >Home</Link>
+      <div className={cn('io-ml__header-container')}>
+        {!isAuthenticated && !isLoading ?
+          <IOLink to={'login'}>Login</IOLink> :
+          <IOLink to={'user'}>{username}</IOLink>}
+        {isAuthenticated && <IOLink to={'/'} onClick={logout}>Logout</IOLink>}
+        <p className={cn('io-clickable')}>
+          <IOLink to={'/'} >Home</IOLink>
         </p>
       </div>
     )
@@ -40,14 +44,16 @@ const mapStateToProps = (state: State) => {
   return {
     isLoading: state.loading,
     error: state.error,
-    isAuthenticated: Boolean(state.token),
+    username: state.username,
+    useremail: state.useremail,
+    isAuthenticated: state.token !== null,
   }
 }
 
-const mapDispatchToProps = (dispatch: DispatchType) => {
+const mapDispatchToProps = (dispatch: any) => {
   return {
     userLogin: (email: string, password: string) => (dispatch(actions.authLogin(email, password))),
-    logout: () => (dispatch(actions.authLogout)),
+    logout: () => dispatch(actions.authLogout()),
   }
 }
 

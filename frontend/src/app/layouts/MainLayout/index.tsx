@@ -2,15 +2,16 @@ import * as React from 'react';
 // import { Footer } from './Footer';
 import Header from './Header';
 import './styles.scss';
+import cn from 'classnames';
 
 interface MainLayoutProps { }
 
 export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => (
-  <div className={'io-ml'}>
-    <div className={'io-ml__header'}>
+  <div className={cn('io-ml')}>
+    <div className={cn('io-ml__header')}>
       <Header />
     </div>
-    <div className={'io-ml__container'}>
+    <div className={cn('io-ml__container')}>
       {children}
     </div>
     {/* <Footer /> */}
