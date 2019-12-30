@@ -31,3 +31,16 @@ class UserLoginApiView(ObtainAuthToken):
           'username': user.name, 
           'email': user.email
           })
+
+
+class UserProfileViewSet(viewsets.ModelViewSet):
+  authentication_classes = (TokenAuthentication,)
+  serializer_class = serializers.UserProfileSerializer
+  queryset = models.UserProfile.objects.all()
+  permission_classes = (
+    permissions.UpdateOwnProfile,
+    IsAuthenticated,
+  )
+
+  def perform_create(self, serializer):
+    serializer.save(user_profile=self.request.user)
