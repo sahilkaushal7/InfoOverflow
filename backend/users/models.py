@@ -47,7 +47,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class UserProfile(models.Model):
-  user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default='')
+  user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
   avatar = models.ImageField(upload_to='images/', null=True, blank=True)
   status_text = models.CharField(max_length=50, null=True, blank=True)
   created_on = models.DateTimeField(auto_now_add=True)

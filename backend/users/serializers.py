@@ -30,6 +30,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.UserProfile
         fields = ['user', 'status_text', 'created_on', 'avatar', 'id']
+        lookup_field = 'user'
         extra_kwargs = {
             'user':
             {

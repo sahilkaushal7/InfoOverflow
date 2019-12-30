@@ -11,7 +11,6 @@ const Login: React.FC<LoginProps> = ({ userLogin }) => {
     const email = e.target.elements.email.value;
     const password = e.target.elements.password.value;
     userLogin(email, password);
-    return <Redirect to={'/'} />
   }
   return (
     <form

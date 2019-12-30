@@ -38,11 +38,12 @@ class UserProfileViewSet(viewsets.ModelViewSet):
   serializer_class = serializers.UserProfileSerializer
   queryset = models.UserProfile.objects.all()
   permission_classes = (
-    permissions.UpdateOwnProfile,
+    permissions.UpdateOwnUserProfile,
     IsAuthenticated,
   )
   filter_backends = (filters.SearchFilter,)
   search_fields = ('user__id',)
+  lookup_field = 'user'
 
   def perform_create(self, serializer):
-    serializer.save(user_profile=self.request.user)
+    serializer.save(user=self.request.user)
