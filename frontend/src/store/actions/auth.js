@@ -7,12 +7,13 @@ export const authStart = () => {
   }
 }
 
-export const authSuccess = (token, email, name) => {
+export const authSuccess = (token, email, name, id) => {
   return {
     type: EReduxActionTypes.AUTH_SUCCESS,
     token: token,
     username: name,
-    useremail: email
+    useremail: email,
+    userId: id,
   }
 }
 
@@ -48,12 +49,14 @@ export const authLogin = (email, password) => {
         const token = res.data.token;
         const email = res.data.email;
         const name = res.data.username;
+        const id = res.data.id;
         const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
         localStorage.setItem('token', token);
         localStorage.setItem('expirationDate', expirationDate);
         localStorage.setItem('email', email);
         localStorage.setItem('name', name);
-        dispatch(authSuccess(token, email, name));
+        localStorage.setItem('id', id);
+        dispatch(authSuccess(token, email, name, id));
         checkAuthTimeout();
       })
       .catch(err => dispatch(authFail(err)))
@@ -85,6 +88,7 @@ export const authCheckState = () => {
     const token = localStorage.getItem('token');
     const email = localStorage.getItem('email');
     const name = localStorage.getItem('name');
+    const id = localStorage.getItem('id');
     if (token === undefined) {
       dispatch(authLogout());
     }
@@ -94,7 +98,7 @@ export const authCheckState = () => {
       if (expirationDate <= new Date()) {
         dispatch(authLogout());
       } else {
-        dispatch(authSuccess(token, email, name));
+        dispatch(authSuccess(token, email, name, id));
         dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000));
       }
     }

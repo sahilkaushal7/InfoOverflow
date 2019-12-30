@@ -23,6 +23,7 @@ export interface IReduxAuthSuccessAction extends IReduxBaseAction {
   token: string;
   username: string;
   useremail: string;
+  userId: number | null;
 }
 
 export interface IReduxAuthFailAction extends IReduxBaseAction {

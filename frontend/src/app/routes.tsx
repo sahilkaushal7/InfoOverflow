@@ -13,42 +13,53 @@ import UserAccount from './views/UserAccount';
 //   <Redirect to='/' />
 // )
 
-interface BaseRouterProps {
+interface PropsFromDispatch {
   userLogin: (email: string, password: string) => void;
 }
 
-interface BaseRouterState {
+interface PropsFromState {
   isAuthenticated: boolean;
+  userId: number;
 }
+
+interface BaseRouterProps extends PropsFromDispatch, PropsFromState { }
+
+interface BaseRouterState { }
 
 class BaseRouter extends React.Component<BaseRouterProps, BaseRouterState> {
   render() {
-    const { userLogin } = this.props;
+    const { userLogin, isAuthenticated, userId } = this.props;
     return (
       <MainLayout>
         <Route exact path='/' component={Landing} />
-        <Route exact path='/login' render={() => <Login userLogin={userLogin}/>} />
-        <Route exact path='/user' component={UserAccount} />
+        <Route exact path='/login' render={() =>
+          !isAuthenticated ?
+            <Login userLogin={userLogin} /> :
+            <Landing />
+        } />
+        <Route exact path='/user' render={() => <UserAccount userId={userId}/>} />
+
         {/* <PrivateRoute exact isAuth={props.isAuthenticated} path='/articles/:articleID' component={Article} />
         <PrivateRoute exact isAuth={props.isAuthenticated} path='/articles' component={Articles} />
         <PrivateRoute exact isAuth={props.isAuthenticated} path='/create' component={CreateArticle} /> */}
       </MainLayout>
-        )
-      }
-    }
-    
+    )
+  }
+}
+
 const mapStateToProps = (state: State) => {
   return {
-          isLoading: state.loading,
-          error: state.error,
-          isAuthenticated: (state.token !== null),
-      }
-    }
-    
+    isLoading: state.loading,
+    error: state.error,
+    isAuthenticated: (state.token !== null),
+    userId: state.userId,
+  }
+}
+
 const mapDispatchToProps = (dispatch: DispatchType) => {
   return {
-          userLogin: (email: string, password: string) => (dispatch(actions.authLogin(email, password)))
-      }
-    }
-    
+    userLogin: (email: string, password: string) => (dispatch(actions.authLogin(email, password)))
+  }
+}
+
 export default connect(mapStateToProps, mapDispatchToProps)(BaseRouter);

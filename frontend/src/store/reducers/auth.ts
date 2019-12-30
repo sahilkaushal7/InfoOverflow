@@ -7,7 +7,8 @@ const initialState = {
   loading: false,
   token: null,
   useremail: '',
-  username: ''
+  username: '',
+  userId: 0,
 }
 
 const authStart = (state: State, action: IReduxAuthStartAction) => {
@@ -23,7 +24,8 @@ const authSuccess = (state: State, action: IReduxAuthSuccessAction) => {
     loading: false,
     token: action.token,
     username: action.username,
-    useremail: action.useremail
+    useremail: action.useremail,
+    userId: action.userId,
   })
 }
 

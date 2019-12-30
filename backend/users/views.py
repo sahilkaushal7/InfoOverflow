@@ -41,6 +41,8 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     permissions.UpdateOwnProfile,
     IsAuthenticated,
   )
+  filter_backends = (filters.SearchFilter,)
+  search_fields = ('user__id',)
 
   def perform_create(self, serializer):
     serializer.save(user_profile=self.request.user)

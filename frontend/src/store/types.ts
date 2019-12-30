@@ -11,6 +11,7 @@ export interface State {
   token: string | null;
   username: string;
   useremail: string;
+  userId: number;
 }
 
 export const Actions = Object.assign(
