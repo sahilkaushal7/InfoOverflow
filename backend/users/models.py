@@ -51,6 +51,11 @@ class UserProfile(models.Model):
   avatar = models.ImageField(upload_to='images/', null=True, blank=True)
   status_text = models.CharField(max_length=50, null=True, blank=True)
   created_on = models.DateTimeField(auto_now_add=True)
+  first_name = models.CharField(max_length=50, null=True, blank=True)
+  last_name = models.CharField(max_length=50, null=True, blank=True)
+  country = models.CharField(max_length=50, null=True, blank=True)
+  city = models.CharField(max_length=50, null=True, blank=True)
+  job_profile = models.CharField(max_length=50, null=True, blank=True)
 
   def __str__(self):
       return self.status_text

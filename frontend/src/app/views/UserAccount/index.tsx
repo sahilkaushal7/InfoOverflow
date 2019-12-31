@@ -14,6 +14,11 @@ export interface UserProfile {
   id: number;
   status_text: string;
   created_on: string;
+  first_name: string;
+  last_name: string;
+  city: string;
+  country: string;
+  job_profile: string;
 }
 
 const UserAccount: React.FC<UserAccountProps> = ({ userId, logout }) => {
@@ -44,7 +49,11 @@ const UserAccount: React.FC<UserAccountProps> = ({ userId, logout }) => {
           <img src={userProfile.avatar} alt={'user_avatar'} width={'50px'} height={'50px'} />
           <p>Status: {userProfile.status_text}</p>
           <p>Updated On: {userProfile.created_on}</p>
-
+          <p>First Name: {userProfile.first_name}</p>
+          <p>Last Name: {userProfile.created_on}</p>
+          <p>City: {userProfile.city}</p>
+          <p>Country: {userProfile.country}</p>
+          <p>Job Profile: {userProfile.job_profile}</p>
           <form
             onSubmit={(e) => updateProfile(e)} >
             <label><b>Image : </b></label>
