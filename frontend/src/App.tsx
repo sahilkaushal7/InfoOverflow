@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import * as actions from './store/actions/auth';
 import { State, DispatchType } from './store/types';
 import './styles/main.scss';
+import cn from 'classnames';
 
 interface AppProps {
   onTryAutoSignUp: any;
@@ -18,7 +19,7 @@ class App extends React.Component<AppProps> {
 
   render() {
     return (
-      <div className="App" >
+      <div className={cn('io-app')} >
         <Router>
           <BaseRouter />
         </Router>

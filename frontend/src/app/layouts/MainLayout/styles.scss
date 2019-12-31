@@ -1,5 +1,7 @@
 @import '../../../styles/abstracts/variables';
 
+$container-border-width: 30px;
+
 .io-ml {
   width: 100%;
   height: 100%;
@@ -10,46 +12,36 @@
 }
 
 .io-ml__container {
-  height: 2000px;
-  margin-left: 20%;
   width: 100%;
   background: $bg-color;
+  border-top-left-radius: $container-border-width;
+  border-bottom-left-radius: $container-border-width;
+  padding: $container-border-width;
 } 
 
 .io-ml__header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  flex: 0 0 20%;
-  max-width: 20%;
-  width: 100%;
+  width: auto;
   height: 100%;
   background: transparent;
 
-  &::after {
-    position: absolute;
-    top: 0;
-    right: 0;
-    content: '';
-    display: block;
-    height: 100%;
-    width: 40px;
-    background: $bg-color;
-    border-top-left-radius: 40px;
-    border-bottom-left-radius: 40px;
-  }
-
   .io-ml__header-container {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 5px 45px 5px 5px;
+    align-items: flex-end;
     color: $primary;
+    font-size: 24px;
 
-
-    input {
+    .io-ml__header-link {
+      background: transparent;
+      border-top-left-radius: 45%;
+      border-bottom-left-radius: 45%;
+      padding: 8px 20px;
       width: 100%;
+    }
+
+    .io-ml__header-link--active {
+      background: white;
     }
   }
 }

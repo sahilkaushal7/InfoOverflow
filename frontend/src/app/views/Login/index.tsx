@@ -1,5 +1,4 @@
 import React from 'react';
-import { Redirect } from 'react-router';
 
 interface LoginProps {
   userLogin: (email: string, password: string) => void;

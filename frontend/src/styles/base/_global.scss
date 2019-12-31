@@ -1,3 +1,8 @@
 .io-clickable {
   cursor: pointer;
 }
+
+body, html, #root, .io-app {
+  height: 100%;
+  width: 100%;
+} 

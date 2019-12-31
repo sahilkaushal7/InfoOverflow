@@ -25,15 +25,28 @@ interface HeaderState { }
 
 class Header extends React.Component<HeaderProps, HeaderState> {
   render() {
-    const { isAuthenticated, logout, username, isLoading } = this.props;
+    const { isAuthenticated, logout, isLoading } = this.props;
+    const sharedProps = {
+      activeClassName: 'io-ml__header-link--active',
+      className: 'io-ml__header-link',
+    };
+
     return (
       <div className={cn('io-ml__header-container')}>
-        {!isAuthenticated || isLoading ?
-          <IOLink to={'login'}>Login</IOLink> :
-          <IOLink to={'user'}>{username}</IOLink>}
-        {isAuthenticated && <IOLink to={'/'} onClick={logout}>Logout</IOLink>}
         <p className={cn('io-clickable')}>
-          <IOLink to={'/'} >Home</IOLink>
+          <IOLink {...sharedProps} exact={true} to={'/'} >
+            <i className={cn('fa', 'fa-home')} />
+          </IOLink>
+        </p>
+        <p>{!isAuthenticated || isLoading ?
+          <IOLink {...sharedProps} to={'login'}><i className={cn('fa', 'fa-user-plus')} /></IOLink> :
+          <IOLink {...sharedProps} to={'user'}><i className={cn('fa', 'fa-user')} /></IOLink>}
+        </p>
+        <p>
+          {isAuthenticated &&
+            <IOLink {...sharedProps} to={'/'} onClick={logout}>
+              <i className={cn('fa', 'fa-user-times')} />
+            </IOLink>}
         </p>
       </div>
     )
