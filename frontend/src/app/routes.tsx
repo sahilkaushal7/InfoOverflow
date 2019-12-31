@@ -15,11 +15,13 @@ import UserAccount from './views/UserAccount';
 
 interface PropsFromDispatch {
   userLogin: (email: string, password: string) => void;
+  logout: () => void;
 }
 
 interface PropsFromState {
   isAuthenticated: boolean;
   userId: number;
+  isLoading: boolean;
 }
 
 interface BaseRouterProps extends PropsFromDispatch, PropsFromState { }
@@ -28,16 +30,16 @@ interface BaseRouterState { }
 
 class BaseRouter extends React.Component<BaseRouterProps, BaseRouterState> {
   render() {
-    const { userLogin, isAuthenticated, userId } = this.props;
+    const { userLogin, isAuthenticated, userId, logout, isLoading } = this.props;
     return (
       <MainLayout>
         <Route exact path='/' component={Landing} />
-        <Route exact path='/login' render={() =>
+        <Route exact path='/login' render={(props) =>
           !isAuthenticated ?
-            <Login userLogin={userLogin} /> :
+            <Login userLogin={userLogin} loading={isLoading} {...props}/> :
             <Landing />
         } />
-        <Route exact path='/user' render={() => <UserAccount userId={userId}/>} />
+        <Route exact path='/user' render={() => <UserAccount userId={userId} logout={logout}/>} />
 
         {/* <PrivateRoute exact isAuth={props.isAuthenticated} path='/articles/:articleID' component={Article} />
         <PrivateRoute exact isAuth={props.isAuthenticated} path='/articles' component={Articles} />
@@ -58,7 +60,8 @@ const mapStateToProps = (state: State) => {
 
 const mapDispatchToProps = (dispatch: DispatchType) => {
   return {
-    userLogin: (email: string, password: string) => (dispatch(actions.authLogin(email, password)))
+    userLogin: (email: string, password: string) => (dispatch(actions.authLogin(email, password))),
+    logout: () => dispatch(actions.authLogout()),
   }
 }
 

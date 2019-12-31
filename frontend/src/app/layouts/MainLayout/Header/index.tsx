@@ -7,7 +7,6 @@ import { IOLink } from '../../../../lib/elements';
 
 interface PropsFromDispatch {
   userLogin: (email: string, password: string) => void;
-  logout: () => void;
 }
 
 interface PropsFromState {
@@ -25,7 +24,7 @@ interface HeaderState { }
 
 class Header extends React.Component<HeaderProps, HeaderState> {
   render() {
-    const { isAuthenticated, logout, isLoading } = this.props;
+    const { isAuthenticated, isLoading } = this.props;
     const sharedProps = {
       activeClassName: 'io-ml__header-link--active',
       className: 'io-ml__header-link',
@@ -41,12 +40,6 @@ class Header extends React.Component<HeaderProps, HeaderState> {
         <p>{!isAuthenticated || isLoading ?
           <IOLink {...sharedProps} to={'login'}><i className={cn('fa', 'fa-user-plus')} /></IOLink> :
           <IOLink {...sharedProps} to={'user'}><i className={cn('fa', 'fa-user')} /></IOLink>}
-        </p>
-        <p>
-          {isAuthenticated &&
-            <IOLink {...sharedProps} to={'/'} onClick={logout}>
-              <i className={cn('fa', 'fa-user-times')} />
-            </IOLink>}
         </p>
       </div>
     )
@@ -66,7 +59,6 @@ const mapStateToProps = (state: State) => {
 const mapDispatchToProps = (dispatch: DispatchType) => {
   return {
     userLogin: (email: string, password: string) => (dispatch(actions.authLogin(email, password))),
-    logout: () => dispatch(actions.authLogout()),
   }
 }
 

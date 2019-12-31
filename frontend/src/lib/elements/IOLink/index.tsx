@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 interface IOLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement>, NavLinkProps {
   to: string;
-  className: string;
+  className?: string;
 }
 
 const IOLink: React.FunctionComponent<IOLinkProps> = ({ to, className, ...rest }) => (

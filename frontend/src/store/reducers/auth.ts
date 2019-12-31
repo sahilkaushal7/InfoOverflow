@@ -4,7 +4,7 @@ import { State } from '../types';
 
 const initialState = {
   error: null,
-  loading: false,
+  loading: true,
   token: null,
   useremail: '',
   username: '',

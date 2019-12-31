@@ -32,11 +32,16 @@ $container-border-width: 30px;
     color: $primary;
     font-size: 24px;
 
+    p {
+      width: 100%;
+    }
+
     .io-ml__header-link {
+      display: block;
       background: transparent;
-      border-top-left-radius: 45%;
-      border-bottom-left-radius: 45%;
-      padding: 8px 20px;
+      border-top-left-radius: 30%;
+      border-bottom-left-radius: 30%;
+      padding: 8px 16px;
       width: 100%;
     }
 

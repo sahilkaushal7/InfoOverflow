@@ -1,8 +1,11 @@
 import * as React from 'react';
 import { getUserProfile, updateUserProfile } from './requests';
+import { IOLink } from '../../../lib/elements';
+import cn from 'classnames';
 
 interface UserAccountProps {
   userId: number;
+  logout: () => void;
 }
 
 export interface UserProfile {
@@ -13,13 +16,13 @@ export interface UserProfile {
   created_on: string;
 }
 
-const UserAccount: React.FC<UserAccountProps> = ({ userId }) => {
+const UserAccount: React.FC<UserAccountProps> = ({ userId, logout }) => {
   const [userProfile, setUserProfile] = React.useState<UserProfile>({} as UserProfile);
   const [userAvatar, setUserAvatar] = React.useState();
 
   React.useEffect(() => {
     getUserProfile(userId).then(res => setUserProfile(res.data[0]));
-  }, [userId, userAvatar]);
+  }, [userProfile]);
 
   const handleImageChange = (e: any) => {
     setUserAvatar(e.target.files[0]);
@@ -57,6 +60,9 @@ const UserAccount: React.FC<UserAccountProps> = ({ userId }) => {
             <input type={'submit'} name={'Login'} />
             <br />
           </form>
+          <IOLink to={'/'} onClick={logout}>
+            <i className={cn('fa', 'fa-user-times')} />
+          </IOLink>
         </>
       }
     </div>
