@@ -3,11 +3,9 @@ from rest_framework.routers import DefaultRouter
 from . import views
 
 router = DefaultRouter()
-router.register('list', views.UserViewSet)
-router.register('userprofile', views.UserProfileViewSet)
+router.register('', views.BlogViewSet)
 
 
 urlpatterns = [
-    path('login/', views.UserLoginApiView.as_view()),
     path('', include(router.urls))
 ]

@@ -41,7 +41,7 @@ const checkAuthTimeout = (expirationTime) => {
 export const authLogin = (email, password) => {
   return dispatch => {
     dispatch(authStart());
-    axios.post('http://192.168.99.100:8000/apis/login/', {
+    axios.post('http://192.168.99.100:8000/users/login/', {
       username: email,
       password: password,
     })
@@ -66,7 +66,7 @@ export const authLogin = (email, password) => {
 export const authSignUp = (name, email, password) => {
   return dispatch => {
     dispatch(authStart());
-    axios.post('http://192.168.99.100:8000/apis/users/', {
+    axios.post('http://192.168.99.100:8000/users/list/', {
       name: name,
       email: email,
       password: password,

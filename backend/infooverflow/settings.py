@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
+    'blogs.apps.BlogsConfig',
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken'
