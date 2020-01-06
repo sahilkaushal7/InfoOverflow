@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { getUserProfile, updateUserProfile } from './requests';
-import { IOLink } from '../../../lib/elements';
+import { getProfile, updateProfile } from '../../requests';
+import { IOLink } from '../../../../../lib/elements';
 import cn from 'classnames';
-import './styles.scss';
+import { AxiosResponse } from 'axios';
 
 interface UserAccountProps {
   logout: () => void;
@@ -11,7 +11,7 @@ interface UserAccountProps {
   }
 }
 
-export interface UserProfile {
+export interface Profile {
   user: number;
   avatar: string;
   id: number;
@@ -24,8 +24,8 @@ export interface UserProfile {
   job_profile: string;
 }
 
-const UserAccount: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
-  const [userProfile, setUserProfile] = React.useState<UserProfile>({} as UserProfile);
+const Profile: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
+  const [userProfile, setProfile] = React.useState<Profile>({} as Profile);
   const [userAvatar, setUserAvatar] = React.useState();
   const [mouseOverImage, setMouseOverImage] = React.useState(false);
   const [userId, setUserId] = React.useState<number>();
@@ -35,7 +35,7 @@ const UserAccount: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
     if (urlParams.id) {
       const userId = urlParams.id;
       setUserId(userId);
-      getUserProfile(userId).then(res => setUserProfile(res.data[0]));
+      getProfile(userId).then((res: AxiosResponse) => setProfile(res.data));
     }
   }, [urlParams.id]);
 
@@ -43,7 +43,7 @@ const UserAccount: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
     setUserAvatar(e.target.files[0]);
   };
 
-  const updateProfile = (e: any) => {
+  const updateDetails = (e: any) => {
     // e.preventDefault();
     const status = e.target.elements.status.value;
     const form_data = new FormData();
@@ -52,7 +52,7 @@ const UserAccount: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
       form_data.append('status_text', status);
     }
     if (userId) {
-      updateUserProfile(form_data, userId);
+      updateProfile(form_data, userId);
     }
   }
 
@@ -74,15 +74,15 @@ const UserAccount: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
               </div>}
             <img src={userProfile.avatar} alt={'user_avatar'} />
           </div>}
-          <p>Status: {userProfile && userProfile.status_text}</p>
-          <p>First Name: {userProfile && userProfile.first_name}</p>
-          <p>Last Name: {userProfile && userProfile.last_name}</p>
-          <p>City: {userProfile && userProfile.city}</p>
-          <p>Country: {userProfile && userProfile.country}</p>
-          <p>Job Profile: {userProfile && userProfile.job_profile}</p>
+          <p>{userProfile && userProfile.status_text && `Status: ${userProfile.status_text}`}</p>
+          <p>{userProfile && userProfile.first_name && `First Name: ${userProfile.first_name}`}</p>
+          <p>{userProfile && userProfile.last_name  && `Last Name: ${userProfile.last_name}`}</p>
+          <p>{userProfile && userProfile.city  && `City: ${userProfile.city}`}</p>
+          <p>{userProfile && userProfile.country  && `Country: ${userProfile.country}`}</p>
+          <p>{userProfile && userProfile.job_profile  && `Job Profile: ${userProfile.job_profile}`}</p>
         </div>
         <form
-          onSubmit={updateProfile} >
+          onSubmit={updateDetails} >
           <label><b>Image : </b></label>
           <input
             type="file"
@@ -106,4 +106,4 @@ const UserAccount: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
 }
 
 
-export default UserAccount;
+export default Profile;

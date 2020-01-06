@@ -1,5 +1,6 @@
 import { EReduxActionTypes } from './actionTypes';
-import axios from 'axios';
+import { Endpoints } from '../../app/apis';
+import { post } from '../../lib/utils/requests';
 
 export const authStart = () => {
   return {
@@ -41,7 +42,7 @@ const checkAuthTimeout = (expirationTime) => {
 export const authLogin = (email, password) => {
   return dispatch => {
     dispatch(authStart());
-    axios.post('http://localhost:8000/users/login/', {
+    post(Endpoints.LOGIN, {
       username: email,
       password: password,
     })
@@ -66,7 +67,7 @@ export const authLogin = (email, password) => {
 export const authSignUp = (name, email, password) => {
   return dispatch => {
     dispatch(authStart());
-    axios.post('http://localhost:8000/users/list/', {
+    post(Endpoints.USERS, {
       name: name,
       email: email,
       password: password,

@@ -39,8 +39,11 @@ class Header extends React.Component<HeaderProps, HeaderState> {
           </IOLink>
         </p>
         <p>{!isAuthenticated || isLoading ?
-          <IOLink {...sharedProps} to={'login'}><i className={cn('fa', 'fa-sign-in')} /></IOLink> :
+          <IOLink {...sharedProps} to={'/login'}><i className={cn('fa', 'fa-sign-in')} /></IOLink> :
           <IOLink {...sharedProps} to={`/user/${userId}`}><i className={cn('fa', 'fa-user')} /></IOLink>}
+        </p>
+        <p>{isAuthenticated && 
+          <IOLink {...sharedProps} to={'/blogs'}><i className={cn('fa', 'fa-rss')} /></IOLink>}
         </p>
       </div>
     )
