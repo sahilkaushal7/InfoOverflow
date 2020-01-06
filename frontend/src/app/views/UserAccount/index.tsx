@@ -5,8 +5,10 @@ import cn from 'classnames';
 import './styles.scss';
 
 interface UserAccountProps {
-  userId: number;
   logout: () => void;
+  urlParams: {
+    id?: number;
+  }
 }
 
 export interface UserProfile {
@@ -22,15 +24,20 @@ export interface UserProfile {
   job_profile: string;
 }
 
-const UserAccount: React.FC<UserAccountProps> = ({ userId, logout }) => {
+const UserAccount: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
   const [userProfile, setUserProfile] = React.useState<UserProfile>({} as UserProfile);
   const [userAvatar, setUserAvatar] = React.useState();
   const [mouseOverImage, setMouseOverImage] = React.useState(false);
+  const [userId, setUserId] = React.useState<number>();
   const imageInputRef = React.useRef<HTMLInputElement>({} as HTMLInputElement);
 
   React.useEffect(() => {
-    getUserProfile(userId).then(res => setUserProfile(res.data[0]));
-  }, [userId]);
+    if (urlParams.id) {
+      const userId = urlParams.id;
+      setUserId(userId);
+      getUserProfile(userId).then(res => setUserProfile(res.data[0]));
+    }
+  }, [urlParams.id]);
 
   const handleImageChange = (e: any) => {
     setUserAvatar(e.target.files[0]);
@@ -44,56 +51,56 @@ const UserAccount: React.FC<UserAccountProps> = ({ userId, logout }) => {
     if (status) {
       form_data.append('status_text', status);
     }
-    updateUserProfile(form_data, userId);
+    if (userId) {
+      updateUserProfile(form_data, userId);
+    }
   }
 
   return (
     <div className={cn('io-userprofile')}>
-      {!!(userProfile) &&
-        <>
-          <div className={cn('io-userprofile__card')}>
-            <div
-              className={cn('io-userprofile__card-image', 'io-clickable')}
-              onMouseOver={() => setMouseOverImage(true)}
-              onMouseLeave={() => setMouseOverImage(false)}
-            >
-              {mouseOverImage &&
-                <div className={cn('io-userprofile__card-image-overlay', 'io-clickable')} >
-                  <i
-                    className={cn('fa', 'fa-pencil')}
-                    onClick={() => (imageInputRef.current as HTMLInputElement).click()}
-                  />
-                </div>}
-              <img src={userProfile.avatar} alt={'user_avatar'} />
-            </div>
-            <p>Status: {userProfile.status_text}</p>
-            <p>First Name: {userProfile.first_name}</p>
-            <p>Last Name: {userProfile.last_name}</p>
-            <p>City: {userProfile.city}</p>
-            <p>Country: {userProfile.country}</p>
-            <p>Job Profile: {userProfile.job_profile}</p>
-          </div>
-          <form
-            onSubmit={updateProfile} >
-            <label><b>Image : </b></label>
-            <input
-              type="file"
-              id="image"
-              accept="image/png, image/jpeg"
-              name={'avatar'}
-              onChange={handleImageChange}
-              ref={imageInputRef}
-            />
-            <label><b>Status : </b></label>
-            <input type={'text'} name={'status'} />
-            <input type={'submit'} name={'Login'} />
-            <br />
-          </form>
-          <IOLink to={'/'} onClick={logout}>
-            <i className={cn('fa', 'fa-sign-out')} />
-          </IOLink>
-        </>
-      }
+      <>
+        <div className={cn('io-userprofile__card')}>
+          {userProfile && userProfile.avatar && <div
+            className={cn('io-userprofile__card-image', 'io-clickable')}
+            onMouseOver={() => setMouseOverImage(true)}
+            onMouseLeave={() => setMouseOverImage(false)}
+          >
+            {mouseOverImage &&
+              <div className={cn('io-userprofile__card-image-overlay', 'io-clickable')} >
+                <i
+                  className={cn('fa', 'fa-pencil')}
+                  onClick={() => (imageInputRef.current as HTMLInputElement).click()}
+                />
+              </div>}
+            <img src={userProfile.avatar} alt={'user_avatar'} />
+          </div>}
+          <p>Status: {userProfile && userProfile.status_text}</p>
+          <p>First Name: {userProfile && userProfile.first_name}</p>
+          <p>Last Name: {userProfile && userProfile.last_name}</p>
+          <p>City: {userProfile && userProfile.city}</p>
+          <p>Country: {userProfile && userProfile.country}</p>
+          <p>Job Profile: {userProfile && userProfile.job_profile}</p>
+        </div>
+        <form
+          onSubmit={updateProfile} >
+          <label><b>Image : </b></label>
+          <input
+            type="file"
+            id="image"
+            accept="image/png, image/jpeg"
+            name={'avatar'}
+            onChange={handleImageChange}
+            ref={imageInputRef}
+          />
+          <label><b>Status : </b></label>
+          <input type={'text'} name={'status'} />
+          <input type={'submit'} name={'Login'} />
+          <br />
+        </form>
+        <IOLink to={'/'} onClick={logout}>
+          <i className={cn('fa', 'fa-sign-out')} />
+        </IOLink>
+      </>
     </div>
   );
 }

@@ -14,6 +14,7 @@ interface PropsFromState {
   username: string;
   useremail: string;
   isLoading: boolean;
+  userId: number;
 }
 
 interface HeaderProps extends PropsFromDispatch, PropsFromState {
@@ -24,7 +25,7 @@ interface HeaderState { }
 
 class Header extends React.Component<HeaderProps, HeaderState> {
   render() {
-    const { isAuthenticated, isLoading } = this.props;
+    const { isAuthenticated, isLoading, userId } = this.props;
     const sharedProps = {
       activeClassName: 'io-ml__header-link--active',
       className: 'io-ml__header-link',
@@ -39,7 +40,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
         </p>
         <p>{!isAuthenticated || isLoading ?
           <IOLink {...sharedProps} to={'login'}><i className={cn('fa', 'fa-sign-in')} /></IOLink> :
-          <IOLink {...sharedProps} to={'user'}><i className={cn('fa', 'fa-user')} /></IOLink>}
+          <IOLink {...sharedProps} to={`/user/${userId}`}><i className={cn('fa', 'fa-user')} /></IOLink>}
         </p>
       </div>
     )
@@ -53,6 +54,7 @@ const mapStateToProps = (state: State) => {
     username: state.username,
     useremail: state.useremail,
     isAuthenticated: state.token !== null,
+    userId: state.userId,
   }
 }
 

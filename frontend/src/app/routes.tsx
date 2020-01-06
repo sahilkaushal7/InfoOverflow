@@ -7,6 +7,8 @@ import { State, DispatchType } from '../store/types';
 import * as actions from '../store/actions/auth';
 import { connect } from 'react-redux';
 import UserAccount from './views/UserAccount';
+import { SignUp } from './views/SignUp';
+import { RouteComponentProps } from 'react-router';
 
 // const PrivateRoute = ({ component, isAuth, ...rest }) => (
 //   isAuth ? <Route {...rest} component={component}/> :
@@ -14,13 +16,13 @@ import UserAccount from './views/UserAccount';
 // )
 
 interface PropsFromDispatch {
+  userSignUp: (name: string, email: string, password: string) => void;
   userLogin: (email: string, password: string) => void;
   logout: () => void;
 }
 
 interface PropsFromState {
   isAuthenticated: boolean;
-  userId: number;
   isLoading: boolean;
 }
 
@@ -30,16 +32,17 @@ interface BaseRouterState { }
 
 class BaseRouter extends React.Component<BaseRouterProps, BaseRouterState> {
   render() {
-    const { userLogin, isAuthenticated, userId, logout, isLoading } = this.props;
+    const { userLogin, isAuthenticated, logout, isLoading, userSignUp } = this.props;
     return (
       <MainLayout>
         <Route exact path='/' component={Landing} />
-        <Route exact path='/login' render={(props) =>
+        <Route exact path='/login' render={(props: RouteComponentProps) =>
           !isAuthenticated ?
             <Login userLogin={userLogin} loading={isLoading} {...props}/> :
             <Landing />
         } />
-        <Route exact path='/user' render={() => <UserAccount userId={userId} logout={logout}/>} />
+        <Route exact path={`/user/:id`} render={(props: RouteComponentProps) => <UserAccount urlParams={props.match.params} logout={logout}/>} />
+        <Route exact path='/signup' render={(props: RouteComponentProps) => <SignUp {...props} userSignUp={userSignUp} loading={isLoading}/>} />
 
         {/* <PrivateRoute exact isAuth={props.isAuthenticated} path='/articles/:articleID' component={Article} />
         <PrivateRoute exact isAuth={props.isAuthenticated} path='/articles' component={Articles} />
@@ -54,12 +57,12 @@ const mapStateToProps = (state: State) => {
     isLoading: state.loading,
     error: state.error,
     isAuthenticated: (state.token !== null),
-    userId: state.userId,
   }
 }
 
 const mapDispatchToProps = (dispatch: DispatchType) => {
   return {
+    userSignUp: (name: string, email: string, password: string) => (dispatch(actions.authSignUp(name, email, password))),
     userLogin: (email: string, password: string) => (dispatch(actions.authLogin(email, password))),
     logout: () => dispatch(actions.authLogout()),
   }
