@@ -1,7 +1,8 @@
 import React from 'react';
-import { RouterProps } from 'react-router';
+import { RouteComponentProps } from 'react-router';
+import { IOLink } from '../../../lib/elements';
 
-interface LoginProps extends RouterProps {
+interface LoginProps extends RouteComponentProps {
   userLogin: (email: string, password: string) => void;
   loading: boolean;
 }
@@ -17,6 +18,7 @@ const Login: React.FC<LoginProps> = ({ userLogin, history, loading }) => {
     }
   }
   return (
+    <>
     <form
       onSubmit={(e) => loginSubmit(e)} >
       <p>Please fill in the login details</p>
@@ -27,6 +29,9 @@ const Login: React.FC<LoginProps> = ({ userLogin, history, loading }) => {
       <input type={'submit'} name={'Login'} />
       <br />
     </form>
+    Dont have an account ?
+    Please Sign Up <IOLink to={'/signup'}>here</IOLink>
+    </>
   )
 }
 
