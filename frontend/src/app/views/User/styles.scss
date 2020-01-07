@@ -3,16 +3,9 @@
 .io-userprofile {
   display: flex;
   flex-direction: row;
+  height: 100%;
 
   .io-userprofile__card {
-    display: flex;
-    flex-direction: column;
-    background: $header-color;
-    padding: $container-border-width;
-    border-radius: $container-border-width;
-    width: fit-content;
-    align-items: center;
-
     .io-userprofile__card-image {
       position: relative;
       img {

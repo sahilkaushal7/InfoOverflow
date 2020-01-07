@@ -3,6 +3,7 @@ import { getProfile, updateProfile } from '../../requests';
 import { IOLink } from '../../../../../lib/elements';
 import cn from 'classnames';
 import { AxiosResponse } from 'axios';
+import { IOCard } from '../../../../../lib/components/IOCards';
 
 interface UserAccountProps {
   logout: () => void;
@@ -59,7 +60,7 @@ const Profile: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
   return (
     <div className={cn('io-userprofile')}>
       <>
-        <div className={cn('io-userprofile__card')}>
+        <IOCard className={cn('io-userprofile__card')}>
           {userProfile && userProfile.avatar && <div
             className={cn('io-userprofile__card-image', 'io-clickable')}
             onMouseOver={() => setMouseOverImage(true)}
@@ -80,7 +81,7 @@ const Profile: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
           <p>{userProfile && userProfile.city  && `City: ${userProfile.city}`}</p>
           <p>{userProfile && userProfile.country  && `Country: ${userProfile.country}`}</p>
           <p>{userProfile && userProfile.job_profile  && `Job Profile: ${userProfile.job_profile}`}</p>
-        </div>
+        </IOCard>
         <form
           onSubmit={updateDetails} >
           <label><b>Image : </b></label>

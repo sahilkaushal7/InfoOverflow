@@ -41,10 +41,23 @@
       border-bottom-left-radius: 30%;
       padding: 8px 16px;
       width: 100%;
+      margin: 20px 0;
     }
 
     .io-ml__header-link--active {
       background: white;
     }
+  }
+}
+
+.io-icontip {
+  background-color: white !important;
+  border: 1px solid $primary;
+  color: $primary !important;
+  font-weight: bold;
+
+  &:after {
+    border-right-color: $primary !important;
+    top: 47% !important;
   }
 }

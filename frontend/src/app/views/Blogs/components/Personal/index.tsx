@@ -18,7 +18,7 @@ export const PersonalBlogs: React.FC<PersonalBlogsProps> = ({ urlParams }) => {
         res => setBlogs(res.data)
       )
     }
-  }, [])
+  }, [urlParams.id])
 
   return (
     <div>

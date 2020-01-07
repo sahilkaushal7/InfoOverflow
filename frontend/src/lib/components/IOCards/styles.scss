@@ -1,0 +1,12 @@
+@import '../../../styles/abstracts/variables';
+
+.io-card {
+  display: flex;
+  flex-direction: column;
+  background: $header-color;
+  padding: $container-border-width;
+  border-radius: $container-border-width;
+  width: fit-content;
+  align-items: center;
+  box-shadow: 0 0 3px 0 $primary;
+}

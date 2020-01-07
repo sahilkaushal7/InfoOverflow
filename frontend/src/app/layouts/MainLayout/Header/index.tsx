@@ -5,6 +5,30 @@ import { State, DispatchType } from '../../../../store/types';
 import cn from 'classnames';
 import { IOLink } from '../../../../lib/elements';
 import { mainUrlsRoot, loginUrlsRoot, blogsUrlsRoot, userUrls } from '../../../urls';
+import ReactToolTip from 'react-tooltip';
+
+enum ToolTipIDs {
+  'SIGNIN' = 'Login',
+  'SIGNUP' = 'Register',
+  'HOME' = 'Home',
+  'BLOGS' = 'Blogs',
+  'PROFILE' = 'Profile',
+}
+
+interface ToolTipProps {
+  id: string;
+}
+
+const ToolTip: React.FC<ToolTipProps> = ({ id }) => (
+  <ReactToolTip
+    delayShow={500}
+    place="right"
+    type="info"
+    effect="solid"
+    className={cn('io-icontip')}
+    id={id}
+  />
+)
 
 interface PropsFromDispatch {
   userLogin: (email: string, password: string) => void;
@@ -26,7 +50,7 @@ interface HeaderState { }
 
 class Header extends React.Component<HeaderProps, HeaderState> {
   render() {
-    const { isAuthenticated, isLoading, userId } = this.props;
+    const { isAuthenticated, isLoading, userId, useremail } = this.props;
     const sharedProps = {
       activeClassName: 'io-ml__header-link--active',
       className: 'io-ml__header-link',
@@ -34,18 +58,45 @@ class Header extends React.Component<HeaderProps, HeaderState> {
 
     return (
       <div className={cn('io-ml__header-container')}>
-        <p className={cn('io-clickable')}>
+        <div className={cn('io-clickable')}>
           <IOLink {...sharedProps} exact={true} to={mainUrlsRoot} >
-            <i className={cn('fa', 'fa-home')} />
+            <ToolTip id={ToolTipIDs.HOME} />
+            <i
+              className={cn('fa', 'fa-home')}
+              data-tip={ToolTipIDs.HOME}
+              data-for={ToolTipIDs.HOME}
+            />
+
           </IOLink>
-        </p>
-        <p>{!isAuthenticated || isLoading ?
-          <IOLink {...sharedProps} to={loginUrlsRoot}><i className={cn('fa', 'fa-sign-in')} /></IOLink> :
-          <IOLink {...sharedProps} to={userUrls.profile(`${userId}`)}><i className={cn('fa', 'fa-user')} /></IOLink>}
-        </p>
-        <p>{isAuthenticated && 
-          <IOLink {...sharedProps} to={blogsUrlsRoot}><i className={cn('fa', 'fa-rss')} /></IOLink>}
-        </p>
+        </div>
+        <div>{!isAuthenticated || isLoading ?
+          <IOLink {...sharedProps} to={loginUrlsRoot}>
+            <ToolTip id={ToolTipIDs.SIGNIN} />
+            <i
+              className={cn('fa', 'fa-sign-in')}
+              data-tip={ToolTipIDs.SIGNIN}
+              data-for={ToolTipIDs.SIGNIN}
+            />
+          </IOLink> :
+          <IOLink {...sharedProps} to={userUrls.profile(`${userId}`)}>
+            <ToolTip id={ToolTipIDs.PROFILE} />
+            <i
+              className={cn('fa', 'fa-user')}
+              data-tip={`${useremail} ${ToolTipIDs.PROFILE}`}
+              data-for={ToolTipIDs.PROFILE}
+            />
+          </IOLink>}
+        </div>
+        <div>{isAuthenticated &&
+          <IOLink {...sharedProps} to={blogsUrlsRoot}>
+            <ToolTip id={ToolTipIDs.BLOGS} />
+            <i
+              className={cn('fa', 'fa-rss')}
+              data-tip={ToolTipIDs.BLOGS}
+              data-for={ToolTipIDs.BLOGS}
+            />
+          </IOLink>}
+        </div>
       </div>
     )
   }
