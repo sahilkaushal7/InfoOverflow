@@ -13,6 +13,7 @@ class BlogViewSet(viewsets.ModelViewSet):
     permissions.UpdateBlog,
   )
   filter_backends = (filters.SearchFilter,)
+  search_fields = ('user__id',)
 
   def perform_create(self, serializer):
     serializer.save(user=self.request.user)

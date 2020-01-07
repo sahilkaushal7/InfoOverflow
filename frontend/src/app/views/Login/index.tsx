@@ -1,6 +1,7 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { IOLink } from '../../../lib/elements';
+import { signupUrlsRoot } from '../../urls';
 
 interface LoginProps extends RouteComponentProps {
   userLogin: (email: string, password: string) => void;
@@ -30,7 +31,7 @@ const Login: React.FC<LoginProps> = ({ userLogin, history, loading }) => {
       <br />
     </form>
     Dont have an account ?
-    Please Sign Up <IOLink to={'/signup'}>here</IOLink>
+    Please Sign Up <IOLink to={signupUrlsRoot}>here</IOLink>
     </>
   )
 }

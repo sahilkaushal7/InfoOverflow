@@ -1,19 +1,17 @@
 import * as React from 'react';
 import { Switch, Route, RouteComponentProps } from 'react-router-dom';
-import Profile from './components/Profile';
 import { State, DispatchType } from '../../../store/types';
-import * as actions from '../../../store/actions/auth';
 import { connect } from 'react-redux';
-import { userUrls } from '../../urls';
-import { Landing } from '../Landing';
+import { blogsUrls } from '../../urls';
+import { Blogs } from './components/AllBlogs';
+import { PersonalBlogs } from './components/Personal';
 
-interface PropsFromDispatch {
-  logout: () => void;
-}
+interface PropsFromDispatch { }
 
 interface PropsFromState {
   isAuthenticated: boolean;
   isLoading: boolean;
+  userId: number;
 }
 
 interface UserRouteProps extends PropsFromDispatch, PropsFromState { }
@@ -22,11 +20,11 @@ interface UserRouteState { }
 
 class UserRoute extends React.Component<UserRouteProps, UserRouteState> {
   render() {
-    const { logout } = this.props;
+    const { userId } = this.props;
     return (
       <Switch>
-        <Route exact path={userUrls.profile()} render={(props: RouteComponentProps) => <Profile urlParams={props.match.params} logout={logout} />} />
-        <Route path={'*'} component={Landing}/>
+        <Route exact path={blogsUrls.landing()} render={(props: RouteComponentProps) => <Blogs userId={userId} />} />
+        <Route exact path={blogsUrls.myblogs()} render={(props: RouteComponentProps) => <PersonalBlogs urlParams={props.match.params} />} />
       </Switch>)
   }
 }
@@ -36,13 +34,12 @@ const mapStateToProps = (state: State) => {
     isLoading: state.loading,
     error: state.error,
     isAuthenticated: (state.token !== null),
+    userId: state.userId,
   }
 }
 
 const mapDispatchToProps = (dispatch: DispatchType) => {
-  return {
-    logout: () => dispatch(actions.authLogout()),
-  }
+  return {}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserRoute);

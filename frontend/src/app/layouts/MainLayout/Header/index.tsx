@@ -4,6 +4,7 @@ import * as actions from '../../../../store/actions/auth';
 import { State, DispatchType } from '../../../../store/types';
 import cn from 'classnames';
 import { IOLink } from '../../../../lib/elements';
+import { mainUrlsRoot, loginUrlsRoot, blogsUrlsRoot, userUrls } from '../../../urls';
 
 interface PropsFromDispatch {
   userLogin: (email: string, password: string) => void;
@@ -34,16 +35,16 @@ class Header extends React.Component<HeaderProps, HeaderState> {
     return (
       <div className={cn('io-ml__header-container')}>
         <p className={cn('io-clickable')}>
-          <IOLink {...sharedProps} exact={true} to={'/'} >
+          <IOLink {...sharedProps} exact={true} to={mainUrlsRoot} >
             <i className={cn('fa', 'fa-home')} />
           </IOLink>
         </p>
         <p>{!isAuthenticated || isLoading ?
-          <IOLink {...sharedProps} to={'/login'}><i className={cn('fa', 'fa-sign-in')} /></IOLink> :
-          <IOLink {...sharedProps} to={`/user/${userId}`}><i className={cn('fa', 'fa-user')} /></IOLink>}
+          <IOLink {...sharedProps} to={loginUrlsRoot}><i className={cn('fa', 'fa-sign-in')} /></IOLink> :
+          <IOLink {...sharedProps} to={userUrls.profile(`${userId}`)}><i className={cn('fa', 'fa-user')} /></IOLink>}
         </p>
         <p>{isAuthenticated && 
-          <IOLink {...sharedProps} to={'/blogs'}><i className={cn('fa', 'fa-rss')} /></IOLink>}
+          <IOLink {...sharedProps} to={blogsUrlsRoot}><i className={cn('fa', 'fa-rss')} /></IOLink>}
         </p>
       </div>
     )

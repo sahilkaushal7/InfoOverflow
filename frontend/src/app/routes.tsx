@@ -9,7 +9,8 @@ import { connect } from 'react-redux';
 import User from './views/User';
 import { SignUp } from './views/SignUp';
 import { RouteComponentProps } from 'react-router';
-import { Blogs } from './views/Blogs';
+import Blogs from './views/Blogs';
+import { mainUrlsRoot, loginUrlsRoot, blogsUrlsRoot, userUrlsRoot, signupUrlsRoot } from './urls';
 
 // const PrivateRoute = ({ component, isAuth, ...rest }) => (
 //   isAuth ? <Route {...rest} component={component}/> :
@@ -36,15 +37,15 @@ class BaseRouter extends React.Component<BaseRouterProps, BaseRouterState> {
     return (
       <MainLayout>
         <Switch>
-          <Route exact path='/' component={Landing} />
-          <Route exact path='/login' render={(props: RouteComponentProps) =>
+          <Route exact path={mainUrlsRoot} component={Landing} />
+          <Route exact path={loginUrlsRoot} render={(props: RouteComponentProps) =>
             !isAuthenticated ?
               <Login userLogin={userLogin} loading={isLoading} {...props} /> :
               <Landing />
           } />
-          <Route exact path='/blogs' render={() => <Blogs />} />
-          <Route path='/user/' render={() => <User />} />
-          <Route exact path='/signup' render={(props: RouteComponentProps) => <SignUp {...props} userSignUp={userSignUp} loading={isLoading} />} />
+          <Route path={blogsUrlsRoot} render={() => <Blogs />} />
+          <Route path={userUrlsRoot} render={() => <User />} />
+          <Route exact path={signupUrlsRoot} render={(props: RouteComponentProps) => <SignUp {...props} userSignUp={userSignUp} loading={isLoading} />} />
 
           {/* <PrivateRoute exact isAuth={props.isAuthenticated} path='/articles/:articleID' component={Article} />
         <PrivateRoute exact isAuth={props.isAuthenticated} path='/articles' component={Articles} />
