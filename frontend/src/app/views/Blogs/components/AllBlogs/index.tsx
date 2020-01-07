@@ -3,6 +3,8 @@ import { Blog } from '../../../../types';
 import { getBlogs } from '../../requests';
 import { IOLink } from '../../../../../lib/elements';
 import { blogsUrls } from '../../../../urls';
+import { IOBlogCard } from '../../../../../lib/components/IOCards';
+import cn from 'classnames';
 
 interface BlogsProps {
   userId: number;
@@ -16,10 +18,12 @@ export const Blogs: React.FC<BlogsProps> = ({ userId }) => {
   }, [])
 
   return (
-    <div>
+    <div className={cn('io-blogs__landing')}>
       <IOLink to={blogsUrls.myblogs(`${userId}`)}>Go To my blogs</IOLink>
       <br />
-      {JSON.stringify(blogs)}
+      <div>
+        {blogs.map((blog, i) => <IOBlogCard key={i} blog={blog} />)}
+      </div>
     </div>
   )
 }

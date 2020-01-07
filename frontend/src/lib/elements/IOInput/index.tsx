@@ -1,6 +1,5 @@
 import * as React from 'react';
 import cn from 'classnames';
-import './styles.scss';
 
 interface IOInputProps {
   type: string;

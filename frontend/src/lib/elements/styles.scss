@@ -8,3 +8,37 @@
     color: darken($primary, 10%);
   }
 }
+
+.io-input {
+  padding: 5px;
+  border-radius: 3px;
+  border: 1px solid $primary;
+
+  &:hover {
+    background-color: rgba($primary, 0.6);
+    color: white;
+  }
+}
+
+.io-input[type='submit'] {
+  padding: 10px;
+  border-radius: 3px;
+  background-color: white;
+  border: 1px solid $primary;
+  cursor: pointer;
+  
+  &:hover {
+    background-color: rgba($primary, 0.6);
+    color: white;
+  }
+}
+
+.io-form {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+
+  & > * {
+    margin: 10px 0;
+  }
+}

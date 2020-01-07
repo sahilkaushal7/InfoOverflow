@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Blog } from '../../../../types';
 import { getPersonalBlogs } from '../../requests';
+import { IOBlogCard } from '../../../../../lib/components/IOCards';
 
 interface PersonalBlogsProps {
   urlParams: {
@@ -22,7 +23,7 @@ export const PersonalBlogs: React.FC<PersonalBlogsProps> = ({ urlParams }) => {
 
   return (
     <div>
-      {JSON.stringify(blogs)}
+      {blogs.map((blog, i) => <IOBlogCard key={i} blog={blog} />)}
     </div>
   )
 }

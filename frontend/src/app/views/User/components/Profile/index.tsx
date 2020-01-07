@@ -61,6 +61,9 @@ const Profile: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
     <div className={cn('io-userprofile')}>
       <>
         <IOCard className={cn('io-userprofile__card')}>
+          <IOLink to={'/'} onClick={logout}>
+            <i className={cn('fa', 'fa-sign-out')} />
+          </IOLink>
           {userProfile && userProfile.avatar && <div
             className={cn('io-userprofile__card-image', 'io-clickable')}
             onMouseOver={() => setMouseOverImage(true)}
@@ -75,32 +78,31 @@ const Profile: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
               </div>}
             <img src={userProfile.avatar} alt={'user_avatar'} />
           </div>}
-          <p>{userProfile && userProfile.status_text && `Status: ${userProfile.status_text}`}</p>
-          <p>{userProfile && userProfile.first_name && `First Name: ${userProfile.first_name}`}</p>
-          <p>{userProfile && userProfile.last_name  && `Last Name: ${userProfile.last_name}`}</p>
-          <p>{userProfile && userProfile.city  && `City: ${userProfile.city}`}</p>
-          <p>{userProfile && userProfile.country  && `Country: ${userProfile.country}`}</p>
-          <p>{userProfile && userProfile.job_profile  && `Job Profile: ${userProfile.job_profile}`}</p>
+          {userProfile && userProfile.status_text && <p>Status: {userProfile.status_text}</p>}
+          {userProfile && userProfile.first_name && <p>First Name: {userProfile.first_name}</p>}
+          {userProfile && userProfile.last_name && <p>Last Name: {userProfile.last_name}</p>}
+          {userProfile && userProfile.city && <p>City: {userProfile.city}</p>}
+          {userProfile && userProfile.country && <p>Country: {userProfile.country}</p>}
+          {userProfile && userProfile.job_profile && <p>Job Profile: {userProfile.job_profile}</p>}
         </IOCard>
-        <form
-          onSubmit={updateDetails} >
-          <label><b>Image : </b></label>
-          <input
-            type="file"
-            id="image"
-            accept="image/png, image/jpeg"
-            name={'avatar'}
-            onChange={handleImageChange}
-            ref={imageInputRef}
-          />
-          <label><b>Status : </b></label>
-          <input type={'text'} name={'status'} />
-          <input type={'submit'} name={'Login'} />
-          <br />
-        </form>
-        <IOLink to={'/'} onClick={logout}>
-          <i className={cn('fa', 'fa-sign-out')} />
-        </IOLink>
+        <IOCard>
+          <form
+            onSubmit={updateDetails} >
+            <label><b>Image : </b></label>
+            <input
+              type="file"
+              id="image"
+              accept="image/png, image/jpeg"
+              name={'avatar'}
+              onChange={handleImageChange}
+              ref={imageInputRef}
+            />
+            <label><b>Status : </b></label>
+            <input type={'text'} name={'status'} />
+            <input type={'submit'} name={'Login'} />
+            <br />
+          </form>
+        </IOCard>
       </>
     </div>
   );

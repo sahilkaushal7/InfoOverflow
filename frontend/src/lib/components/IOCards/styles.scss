@@ -6,7 +6,29 @@
   background: $header-color;
   padding: $container-border-width;
   border-radius: $container-border-width;
-  width: fit-content;
   align-items: center;
   box-shadow: 0 0 3px 0 $primary;
+}
+
+.io-blog-card {
+  max-width: 300px;
+  height: 100%;
+
+  & > div {
+    height: 300px;
+    width: 100%;
+    border-radius: 30px;
+
+    & > img {
+      height: 100%;
+      width: 100%;
+      border-radius: inherit;
+    }
+  }
+
+  & > P {
+    line-height: 20px;
+    max-height: 100px;
+    overflow: hidden;
+  }
 }

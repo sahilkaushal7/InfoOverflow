@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
+import { IOCard } from '../../../lib/components/IOCards';
+import { SignUpForm } from '../../../lib/elements/IOForm';
 
 interface SignUpProps extends RouteComponentProps {
   loading: boolean;
@@ -20,20 +22,8 @@ export const SignUp: React.FC<SignUpProps> = ({ userSignUp, history, loading }) 
   }
 
   return (
-    <div>
-      This is signup
-      <form
-        onSubmit={(e) => signUpUser(e)} >
-        <p>Please fill in the login details</p>
-        <label><b>name : </b></label>
-        <input type={'text'} name={'name'} />
-        <label><b>email : </b></label>
-        <input type={'text'} name={'email'} />
-        <label><b>Password : </b></label>
-        <input type={'password'} name={'password'} />
-        <input type={'submit'} name={'Login'} />
-        <br />
-      </form>
-    </div>
+    <IOCard>
+      <SignUpForm submitHandler={signUpUser}/>
+    </IOCard>
   )
 }
