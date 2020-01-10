@@ -16,9 +16,7 @@ export const SignUp: React.FC<SignUpProps> = ({ userSignUp, history, loading }) 
     const email = target.email.value;
     const password = target.password.value;
     userSignUp(name, email, password);
-    if (!loading) {
-      history.push('/');
-    }
+    history.push('/login');
   }
 
   return (

@@ -8,7 +8,7 @@ const getProfile: (userId: number) => Promise<AxiosResponse> = (userId) => {
 
 const updateProfile: (form_data: FormData, userId: number) => Promise<AxiosResponse> =
   (form_data, userId) => {
-    return put(`${Endpoints.USERSPROFILE}/${userId}`, form_data);
+    return put(`${Endpoints.USERSPROFILE}/${userId}/`, form_data, true);
   }
 
 export {

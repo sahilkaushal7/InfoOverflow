@@ -4,6 +4,7 @@ import { IOLink } from '../../../../../lib/elements';
 import cn from 'classnames';
 import { AxiosResponse } from 'axios';
 import { IOCard } from '../../../../../lib/components/IOCards';
+import { UpdateProfile } from '../../../../../lib/elements/IOForm';
 
 interface UserAccountProps {
   logout: () => void;
@@ -48,7 +49,9 @@ const Profile: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
     // e.preventDefault();
     const status = e.target.elements.status.value;
     const form_data = new FormData();
-    form_data.append('avatar', userAvatar, userAvatar.name);
+    if (userAvatar) {
+      form_data.append('avatar', userAvatar, userAvatar.name);
+    }
     if (status) {
       form_data.append('status_text', status);
     }
@@ -86,22 +89,12 @@ const Profile: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
           {userProfile && userProfile.job_profile && <p>Job Profile: {userProfile.job_profile}</p>}
         </IOCard>
         <IOCard>
-          <form
-            onSubmit={updateDetails} >
-            <label><b>Image : </b></label>
-            <input
-              type="file"
-              id="image"
-              accept="image/png, image/jpeg"
-              name={'avatar'}
-              onChange={handleImageChange}
-              ref={imageInputRef}
-            />
-            <label><b>Status : </b></label>
-            <input type={'text'} name={'status'} />
-            <input type={'submit'} name={'Login'} />
-            <br />
-          </form>
+          <UpdateProfile
+            submitHandler={updateDetails}
+            handleImageChange={handleImageChange}
+            ref={imageInputRef}
+            status={userProfile && userProfile.status_text}
+          />
         </IOCard>
       </>
     </div>

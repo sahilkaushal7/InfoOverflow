@@ -1,14 +1,13 @@
 import * as React from 'react';
 import cn from 'classnames';
 
-interface IOInputProps {
-  type: string;
-  name: string;
-  placeholder?: string;
+interface IOInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  onChange?: (e: any) => void;
+  ref: any;
 }
 
-export const IOInput: React.FC<IOInputProps> = ({ type, name, placeholder }) => {
+export const IOInput = React.forwardRef(({ type, name, placeholder, onChange, ...rest }: IOInputProps, ref) => {
   return (
-    <input type={type} name={name} placeholder={placeholder} className={cn('io-input')}/>
+    <input type={type} name={name} placeholder={placeholder} className={cn('io-input')} onChange={onChange} ref={ref} {...rest} />
   )
-}
+});

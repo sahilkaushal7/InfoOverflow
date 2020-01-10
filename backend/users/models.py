@@ -70,4 +70,4 @@ class UserProfile(models.Model):
     objects = UserProfileManager()
 
     def __str__(self):
-        return self.status_text
+        return self.user.email + 'Profile'
