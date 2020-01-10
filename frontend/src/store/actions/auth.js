@@ -49,7 +49,7 @@ export const authLogin = (email, password) => {
       .then(res => {
         const token = res.data.token;
         const email = res.data.email;
-        const name = res.data.username;
+        const name = res.data.name;
         const id = res.data.id;
         const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
         localStorage.setItem('token', token);
@@ -73,12 +73,7 @@ export const authSignUp = (name, email, password) => {
       password: password,
     })
       .then(res => {
-        const token = res.data.key;
-        const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
-        localStorage.setItem('token', token);
-        localStorage.setItem('expirationDate', expirationDate);
-        dispatch(authSuccess(token));
-        checkAuthTimeout(3600);
+        alert(`Congrats ${res.data.name}. You have registered successfully, Please Login to continue.`)
       })
       .catch(err => dispatch(authFail(err)))
   }
