@@ -64,9 +64,14 @@ const Profile: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
     <div className={cn('io-userprofile')}>
       <>
         <IOCard className={cn('io-userprofile__card')}>
-          <IOLink to={'/'} onClick={logout}>
-            <i className={cn('fa', 'fa-sign-out')} />
-          </IOLink>
+          <div className={cn('io-userprofile__card-actions')}>
+            <p onClick={logout} className={cn('io-clickable')}>
+              <i className={cn('fa', 'fa-sign-out')} /> Logout
+            </p>
+            <p className={cn('io-clickable')}>
+              <i className={cn('fa', 'fa-pencil')} /> Edit Profile
+            </p>
+          </div>
           {userProfile && userProfile.avatar && <div
             className={cn('io-userprofile__card-image', 'io-clickable')}
             onMouseOver={() => setMouseOverImage(true)}
@@ -81,23 +86,24 @@ const Profile: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
               </div>}
             <img src={userProfile.avatar} alt={'user_avatar'} />
           </div>}
-          {userProfile && userProfile.status_text && <p>Status: {userProfile.status_text}</p>}
-          {userProfile && userProfile.first_name && <p>First Name: {userProfile.first_name}</p>}
-          {userProfile && userProfile.last_name && <p>Last Name: {userProfile.last_name}</p>}
-          {userProfile && userProfile.city && <p>City: {userProfile.city}</p>}
-          {userProfile && userProfile.country && <p>Country: {userProfile.country}</p>}
-          {userProfile && userProfile.job_profile && <p>Job Profile: {userProfile.job_profile}</p>}
-        </IOCard>
-        <IOCard>
-          <UpdateProfile
-            submitHandler={updateDetails}
-            handleImageChange={handleImageChange}
-            ref={imageInputRef}
-            status={userProfile && userProfile.status_text}
-          />
+          <p>
+            <b>{userProfile && userProfile.first_name} {userProfile && userProfile.last_name}</b>
+            <br />
+            {userProfile && userProfile.city}, {userProfile && userProfile.country}
+          </p>
+          <div className={cn('io-userprofile__card-summary')}>
+            <div>
+              <span><i className={cn('fa', 'fa-briefcase')} /><b>Profile :</b></span>
+              <span>{userProfile && userProfile.job_profile}</span>
+            </div>
+            <div>
+              <span><i className={cn('fa', 'fa-newspaper-o')} /><b>Status :</b></span>
+              <span>{userProfile && userProfile.status_text}</span>
+            </div>
+          </div>
         </IOCard>
       </>
-    </div>
+    </div >
   );
 }
 

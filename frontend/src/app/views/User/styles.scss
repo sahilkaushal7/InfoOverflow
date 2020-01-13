@@ -7,6 +7,22 @@
   justify-content: space-between;
 
   .io-userprofile__card {
+    text-align: center;
+
+    .io-userprofile__card-actions {
+      align-self: flex-end;
+      margin-bottom: 5px;
+      text-align: right;
+      color: $primary;
+      font-size: 15px;
+
+      p {
+        &:hover {
+          color: darken($primary, 10%);
+        }
+      }
+    }
+
     .io-userprofile__card-image {
       position: relative;
       img {
@@ -30,6 +46,31 @@
       justify-content: center;
       font-size: 40px;
       color: white;
+    }
+
+    .io-userprofile__card-summary {
+      background-color: white;
+      padding: 10px;
+      border-radius: $small-border-radius;
+      div {
+        display: flex;
+        flex-direction: row;
+        background-color: $header-color;
+        border-radius: $border-radius;
+        padding: 10px;
+        margin: 10px 0;
+        span {
+          padding: 0 5px;
+        }
+        i {
+          color: $primary;
+          margin-right: 5px;
+          border: 1px solid $primary;
+          border-radius: 50%;
+          padding: 5px;
+          font-size: 12px;
+        }
+      }
     }
   }
 }

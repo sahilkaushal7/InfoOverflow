@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect, RouteProps } from 'react-router-dom';
 import { MainLayout } from './layouts/MainLayout';
 import { Landing } from './views/Landing';
 import Login from './views/Login';
@@ -12,10 +12,17 @@ import { RouteComponentProps } from 'react-router';
 import Blogs from './views/Blogs';
 import { mainUrlsRoot, loginUrlsRoot, blogsUrlsRoot, userUrlsRoot, signupUrlsRoot } from './urls';
 
-// const PrivateRoute = ({ component, isAuth, ...rest }) => (
-//   isAuth ? <Route {...rest} component={component}/> :
-//   <Redirect to='/' />
-// )
+interface PrivateRoute extends RouteProps {
+  component?: any;
+  render?: (props?: RouteComponentProps) => JSX.Element;
+  isAuth: boolean;
+  path: string;
+}
+
+const PrivateRoute = ({ component, isAuth, path, render, ...rest }: PrivateRoute) => (
+  isAuth ? <Route path={path} component={component} render={render} {...rest} /> :
+    <Redirect to='/' />
+)
 
 interface PropsFromDispatch {
   userSignUp: (name: string, email: string, password: string) => void;
@@ -43,13 +50,21 @@ class BaseRouter extends React.Component<BaseRouterProps, BaseRouterState> {
               <Login userLogin={userLogin} loading={isLoading} {...props} /> :
               <Landing />
           } />
-          <Route path={blogsUrlsRoot} render={() => <Blogs />} />
-          <Route path={userUrlsRoot} render={() => <User />} />
-          <Route exact path={signupUrlsRoot} render={(props: RouteComponentProps) => <SignUp {...props} userSignUp={userSignUp} loading={isLoading} />} />
-
-          {/* <PrivateRoute exact isAuth={props.isAuthenticated} path='/articles/:articleID' component={Article} />
-        <PrivateRoute exact isAuth={props.isAuthenticated} path='/articles' component={Articles} />
-        <PrivateRoute exact isAuth={props.isAuthenticated} path='/create' component={CreateArticle} /> */}
+          <Route
+            path={signupUrlsRoot}
+            render={(props: RouteComponentProps) => <SignUp {...props} userSignUp={userSignUp} loading={isLoading} />}
+          />
+          <PrivateRoute
+            path={userUrlsRoot}
+            component={User}
+            isAuth={isAuthenticated}
+          />
+          <PrivateRoute
+            isAuth={isAuthenticated}
+            exact
+            path={blogsUrlsRoot}
+            render={() => <Blogs />}
+          />
         </Switch>
       </MainLayout>
     )
