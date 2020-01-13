@@ -61,7 +61,6 @@ class BaseRouter extends React.Component<BaseRouterProps, BaseRouterState> {
           />
           <PrivateRoute
             isAuth={isAuthenticated}
-            exact
             path={blogsUrlsRoot}
             render={() => <Blogs />}
           />

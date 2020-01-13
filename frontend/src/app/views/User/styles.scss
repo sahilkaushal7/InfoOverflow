@@ -23,7 +23,8 @@
       }
     }
 
-    & > p {
+    .io-userprofile__card-details {
+      margin: 10px 0;
       input {
         max-width: 100px;
       }
@@ -31,6 +32,11 @@
 
     .io-userprofile__card-image {
       position: relative;
+
+      input {
+        display: none;
+      }
+
       img {
         display: block;
         width: 150px;
@@ -38,6 +44,7 @@
         border-radius: 50%;
       }
     }
+
     .io-userprofile__card-image-overlay {
       position: absolute;
       top: 0;

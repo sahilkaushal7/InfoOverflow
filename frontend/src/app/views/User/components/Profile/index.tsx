@@ -1,10 +1,8 @@
 import * as React from 'react';
 import { getProfile, updateProfile } from '../../requests';
-import { IOLink } from '../../../../../lib/elements';
 import cn from 'classnames';
 import { AxiosResponse } from 'axios';
 import { IOCard } from '../../../../../lib/components/IOCards';
-import { UpdateProfile } from '../../../../../lib/elements/IOForm';
 import { IOInput } from '../../../../../lib/elements/IOInput';
 
 interface UserAccountProps {
@@ -15,31 +13,29 @@ interface UserAccountProps {
 }
 
 export interface Profile {
-  user: number;
   avatar: string;
-  id: number;
-  status_text: string;
-  created_on: string;
-  first_name: string;
-  last_name: string;
+  statusText: string;
+  createdOn: string;
+  firstName: string;
+  lastName: string;
   city: string;
   country: string;
-  job_profile: string;
+  jobProfile: string;
+  [key: string]: string | Blob;
 }
 
 const Profile: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
   const [userProfile, setProfile] = React.useState<Profile>({} as Profile);
+  const [updatedProfile, setUpdatedProfile] = React.useState<Profile>({} as Profile);
   const [userAvatar, setUserAvatar] = React.useState();
   const [mouseOverImage, setMouseOverImage] = React.useState(false);
-  const [userId, setUserId] = React.useState<number>();
   const [editing, setEditing] = React.useState(false);
   const imageInputRef = React.useRef<HTMLInputElement>({} as HTMLInputElement);
 
   React.useEffect(() => {
     if (urlParams.id) {
       const userId = urlParams.id;
-      setUserId(userId);
-      getProfile(userId).then((res: AxiosResponse) => setProfile(res.data));
+      getProfile(userId).then((res: AxiosResponse) => { setProfile(res.data); setUpdatedProfile(res.data); });
     }
   }, [urlParams.id]);
 
@@ -48,22 +44,32 @@ const Profile: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
   };
 
   const updateDetails = (e: any) => {
-    // e.preventDefault();
-    // const status = e.target.elements.status.value;
-    // const form_data = new FormData();
-    // if (userAvatar) {
-    //   form_data.append('avatar', userAvatar, userAvatar.name);
-    // }
-    // if (status) {
-    //   form_data.append('status_text', status);
-    // }
-    // if (userId) {
-    //   updateProfile(form_data, userId);
-    // }
+    const userId = urlParams.id;
+    const form_data = new FormData();
+    if (userAvatar) {
+      form_data.append('avatar', userAvatar, userAvatar.name);
+    }
+
+    Object.keys(updatedProfile).forEach((key) => {
+      if (key !== 'avatar') {
+        form_data.append(key, updatedProfile[key])
+      }
+    });
+    if (userId) {
+      updateProfile(form_data, userId);
+    }
     setEditing(false);
   }
 
-
+  const updateField = (fieldName: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const { value } = e.target;
+    const profile = {
+      ...updatedProfile,
+      [fieldName]: value
+    }
+    setUpdatedProfile(profile);
+  }
 
   return (
     <div className={cn('io-userprofile')}>
@@ -82,7 +88,13 @@ const Profile: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
             onMouseOver={() => setMouseOverImage(true)}
             onMouseLeave={() => setMouseOverImage(false)}
           >
-            {mouseOverImage &&
+            <IOInput
+              type={'file'}
+              accept={"image/png, image/jpeg"}
+              onChange={handleImageChange}
+              ref={imageInputRef}
+            />
+            {mouseOverImage && editing &&
               <div className={cn('io-userprofile__card-image-overlay', 'io-clickable')} >
                 <i
                   className={cn('fa', 'fa-pencil')}
@@ -91,29 +103,59 @@ const Profile: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
               </div>}
             <img src={userProfile.avatar} alt={'user_avatar'} />
           </div>}
-          <p>
+          <div className={cn('io-userprofile__card-details')}>
             {editing ?
               <div>
-                <IOInput type={'text'} placeholder={userProfile ? userProfile.first_name : 'First name'} name={'firstName'}/>
-                <IOInput type={'text'} placeholder={userProfile ? userProfile.last_name : 'Last name'} name={'lastName'}/>
+                <IOInput
+                  type={'text'}
+                  defaultValue={updatedProfile.firstName}
+                  onChange={updateField('firstName')}
+                />
+                <IOInput
+                  type={'text'}
+                  defaultValue={userProfile.lastName}
+                  onChange={updateField('lastName')}
+                />
               </div>
-              : <b>{userProfile && userProfile.first_name} {userProfile && userProfile.last_name}</b>}
+              : <b>{userProfile && userProfile.firstName} {userProfile && userProfile.lastName}</b>}
             <br />
             {editing ?
               <div>
-                <IOInput type={'text'} placeholder={userProfile ? userProfile.city : 'City'} name={'city'}/>
-                <IOInput type={'text'} placeholder={userProfile ? userProfile.country : 'Country'} name={'country'}/>
+                <IOInput
+                  type={'text'}
+                  defaultValue={userProfile.city}
+                  onChange={updateField('city')}
+                />
+                <IOInput
+                  type={'text'}
+                  defaultValue={userProfile.country}
+                  onChange={updateField('country')}
+                />
               </div> :
               <>{userProfile && userProfile.city}, {userProfile && userProfile.country}</>}
-          </p>
+          </div>
           <div className={cn('io-userprofile__card-summary')}>
             <div>
               <span><i className={cn('fa', 'fa-briefcase')} /><b>Profile :</b></span>
-              <span>{userProfile && userProfile.job_profile}</span>
+              <span>
+                {editing
+                  ? <IOInput
+                    type={'text'}
+                    defaultValue={userProfile.jobProfile}
+                    onChange={updateField('jobProfile')}
+                  />
+                  : <>{userProfile && userProfile.jobProfile}</>}
+              </span>
             </div>
             <div>
               <span><i className={cn('fa', 'fa-newspaper-o')} /><b>Status :</b></span>
-              <span>{userProfile && userProfile.status_text}</span>
+              <span>{editing
+                ? <IOInput
+                  type={'text'}
+                  defaultValue={userProfile.statusText}
+                  onChange={updateField('statusText')}
+                />
+                : <>{userProfile && userProfile.statusText}</>}</span>
             </div>
           </div>
           {editing && <IOInput type={'submit'} value={'Update'} />}

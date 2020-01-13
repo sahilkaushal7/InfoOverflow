@@ -2,7 +2,7 @@ import * as React from 'react';
 import cn from 'classnames';
 
 interface IOInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  onChange?: (e: any) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   ref: any;
 }
 
