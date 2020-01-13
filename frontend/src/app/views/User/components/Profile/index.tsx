@@ -5,6 +5,7 @@ import cn from 'classnames';
 import { AxiosResponse } from 'axios';
 import { IOCard } from '../../../../../lib/components/IOCards';
 import { UpdateProfile } from '../../../../../lib/elements/IOForm';
+import { IOInput } from '../../../../../lib/elements/IOInput';
 
 interface UserAccountProps {
   logout: () => void;
@@ -31,6 +32,7 @@ const Profile: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
   const [userAvatar, setUserAvatar] = React.useState();
   const [mouseOverImage, setMouseOverImage] = React.useState(false);
   const [userId, setUserId] = React.useState<number>();
+  const [editing, setEditing] = React.useState(false);
   const imageInputRef = React.useRef<HTMLInputElement>({} as HTMLInputElement);
 
   React.useEffect(() => {
@@ -47,28 +49,31 @@ const Profile: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
 
   const updateDetails = (e: any) => {
     // e.preventDefault();
-    const status = e.target.elements.status.value;
-    const form_data = new FormData();
-    if (userAvatar) {
-      form_data.append('avatar', userAvatar, userAvatar.name);
-    }
-    if (status) {
-      form_data.append('status_text', status);
-    }
-    if (userId) {
-      updateProfile(form_data, userId);
-    }
+    // const status = e.target.elements.status.value;
+    // const form_data = new FormData();
+    // if (userAvatar) {
+    //   form_data.append('avatar', userAvatar, userAvatar.name);
+    // }
+    // if (status) {
+    //   form_data.append('status_text', status);
+    // }
+    // if (userId) {
+    //   updateProfile(form_data, userId);
+    // }
+    setEditing(false);
   }
+
+
 
   return (
     <div className={cn('io-userprofile')}>
-      <>
+      <form onSubmit={(e) => updateDetails(e)}>
         <IOCard className={cn('io-userprofile__card')}>
           <div className={cn('io-userprofile__card-actions')}>
             <p onClick={logout} className={cn('io-clickable')}>
               <i className={cn('fa', 'fa-sign-out')} /> Logout
             </p>
-            <p className={cn('io-clickable')}>
+            <p onClick={() => setEditing(true)} className={cn('io-clickable')}>
               <i className={cn('fa', 'fa-pencil')} /> Edit Profile
             </p>
           </div>
@@ -87,9 +92,19 @@ const Profile: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
             <img src={userProfile.avatar} alt={'user_avatar'} />
           </div>}
           <p>
-            <b>{userProfile && userProfile.first_name} {userProfile && userProfile.last_name}</b>
+            {editing ?
+              <div>
+                <IOInput type={'text'} placeholder={userProfile ? userProfile.first_name : 'First name'} name={'firstName'}/>
+                <IOInput type={'text'} placeholder={userProfile ? userProfile.last_name : 'Last name'} name={'lastName'}/>
+              </div>
+              : <b>{userProfile && userProfile.first_name} {userProfile && userProfile.last_name}</b>}
             <br />
-            {userProfile && userProfile.city}, {userProfile && userProfile.country}
+            {editing ?
+              <div>
+                <IOInput type={'text'} placeholder={userProfile ? userProfile.city : 'City'} name={'city'}/>
+                <IOInput type={'text'} placeholder={userProfile ? userProfile.country : 'Country'} name={'country'}/>
+              </div> :
+              <>{userProfile && userProfile.city}, {userProfile && userProfile.country}</>}
           </p>
           <div className={cn('io-userprofile__card-summary')}>
             <div>
@@ -101,8 +116,9 @@ const Profile: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
               <span>{userProfile && userProfile.status_text}</span>
             </div>
           </div>
+          {editing && <IOInput type={'submit'} value={'Update'} />}
         </IOCard>
-      </>
+      </form>
     </div >
   );
 }

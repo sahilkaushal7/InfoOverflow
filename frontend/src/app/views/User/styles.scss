@@ -23,6 +23,12 @@
       }
     }
 
+    & > p {
+      input {
+        max-width: 100px;
+      }
+    }
+
     .io-userprofile__card-image {
       position: relative;
       img {
@@ -51,7 +57,9 @@
     .io-userprofile__card-summary {
       background-color: white;
       padding: 10px;
+      margin: 10px 0;
       border-radius: $small-border-radius;
+
       div {
         display: flex;
         flex-direction: row;
@@ -59,9 +67,11 @@
         border-radius: $border-radius;
         padding: 10px;
         margin: 10px 0;
+
         span {
           padding: 0 5px;
         }
+
         i {
           color: $primary;
           margin-right: 5px;
