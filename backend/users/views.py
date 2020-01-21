@@ -39,7 +39,6 @@ class UserProfileViewSet(viewsets.ModelViewSet):
   queryset = models.UserProfile.objects.all()
   permission_classes = (
     permissions.UpdateOwnUserProfile,
-    IsAuthenticated,
   )
   filter_backends = (filters.SearchFilter,)
   search_fields = ('user__id',)

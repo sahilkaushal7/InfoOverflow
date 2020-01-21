@@ -100,11 +100,13 @@ const Profile: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
                   type={'text'}
                   defaultValue={userProfile.firstName}
                   onChange={updateField('firstName')}
+                  placeholder={'First name'}
                 />
                 <IOInput
                   type={'text'}
                   defaultValue={userProfile.lastName}
                   onChange={updateField('lastName')}
+                  placeholder={'Last name'}
                 />
               </div>
               : <b>{userProfile && userProfile.firstName} {userProfile && userProfile.lastName}</b>}
@@ -115,11 +117,13 @@ const Profile: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
                   type={'text'}
                   defaultValue={userProfile.city}
                   onChange={updateField('city')}
+                  placeholder={'City'}
                 />
                 <IOInput
                   type={'text'}
                   defaultValue={userProfile.country}
                   onChange={updateField('country')}
+                  placeholder={'Country'}
                 />
               </div> :
               <>{userProfile && userProfile.city}, {userProfile && userProfile.country}</>}
@@ -133,6 +137,7 @@ const Profile: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
                     type={'text'}
                     defaultValue={userProfile.jobProfile}
                     onChange={updateField('jobProfile')}
+                    placeholder={'Job profile'}
                   />
                   : <>{userProfile && userProfile.jobProfile}</>}
               </span>
@@ -144,11 +149,13 @@ const Profile: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
                   type={'text'}
                   defaultValue={userProfile.statusText}
                   onChange={updateField('statusText')}
+                  placeholder={'Status'}
                 />
                 : <>{userProfile && userProfile.statusText}</>}</span>
             </div>
           </div>
           {editing && <IOInput type={'submit'} value={'Update'} />}
+          {editing && <p> <IOInput type={'button'} value={'Cancel'} onClick={() => setEditing(false)} /></p>}
         </IOCard>
       </form>
     </div >
