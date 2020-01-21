@@ -4,6 +4,7 @@ import cn from 'classnames';
 import { AxiosResponse } from 'axios';
 import { IOCard } from '../../../../../lib/components/IOCards';
 import { IOInput } from '../../../../../lib/elements/IOInput';
+import { UserProfile } from '../../../../types';
 
 interface UserAccountProps {
   logout: () => void;
@@ -12,21 +13,9 @@ interface UserAccountProps {
   }
 }
 
-export interface Profile {
-  avatar: string;
-  statusText: string;
-  createdOn: string;
-  firstName: string;
-  lastName: string;
-  city: string;
-  country: string;
-  jobProfile: string;
-  [key: string]: string | Blob;
-}
-
 const Profile: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
-  const [userProfile, setProfile] = React.useState<Profile>({} as Profile);
-  const [updatedProfile, setUpdatedProfile] = React.useState<Profile>({} as Profile);
+  const [userProfile, setProfile] = React.useState<UserProfile>({} as UserProfile);
+  const [updatedProfile, setUpdatedProfile] = React.useState<UserProfile>({} as UserProfile);
   const [userAvatar, setUserAvatar] = React.useState();
   const [mouseOverImage, setMouseOverImage] = React.useState(false);
   const [editing, setEditing] = React.useState(false);
@@ -44,7 +33,6 @@ const Profile: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
   };
 
   const updateDetails = (e: any) => {
-    // e.preventDefault();
     const userId = urlParams.id;
     const form_data = new FormData();
     if (userAvatar) {

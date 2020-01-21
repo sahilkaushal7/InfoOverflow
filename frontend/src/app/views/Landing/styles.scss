@@ -1,0 +1,30 @@
+@import '../../../styles/abstracts/variables';
+
+.io-landing {
+  display: flex;
+  flex-direction: row;
+}
+
+.io-landing__users {
+  flex: 0 0 40%;
+  background: white;
+  box-shadow: 0 0 3px 0 $border-color;
+}
+
+.io-landing__users-details {
+  width: 100%;
+  border-collapse: collapse;
+
+  tr {
+    border-bottom: 1px solid $border-color;
+  }
+
+  td, th {
+    text-align: center;
+    padding: 10px;
+  }
+
+  img {
+    border-radius: 50%;
+  }
+}
