@@ -44,6 +44,7 @@ const Profile: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
   };
 
   const updateDetails = (e: any) => {
+    // e.preventDefault();
     const userId = urlParams.id;
     const form_data = new FormData();
     if (userAvatar) {
@@ -55,6 +56,7 @@ const Profile: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
         form_data.append(key, updatedProfile[key])
       }
     });
+
     if (userId) {
       updateProfile(form_data, userId);
     }
@@ -73,7 +75,7 @@ const Profile: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
 
   return (
     <div className={cn('io-userprofile')}>
-      <form onSubmit={(e) => updateDetails(e)}>
+      <form onSubmit={(e) => { updateDetails(e); return false; }}>
         <IOCard className={cn('io-userprofile__card')}>
           <div className={cn('io-userprofile__card-actions')}>
             <p onClick={logout} className={cn('io-clickable')}>
@@ -108,7 +110,7 @@ const Profile: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
               <div>
                 <IOInput
                   type={'text'}
-                  defaultValue={updatedProfile.firstName}
+                  defaultValue={userProfile.firstName}
                   onChange={updateField('firstName')}
                 />
                 <IOInput
