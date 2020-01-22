@@ -4,6 +4,7 @@ export const appUrls = {
   user: () => '/user',
   login: () => '/login',
   signup: () => '/signup',
+  questions: () => '/questions',
 }
 
 export const mainUrlsRoot = appUrls.root();
@@ -23,5 +24,7 @@ export const userUrls = {
 export const loginUrlsRoot = appUrls.login();
 
 export const signupUrlsRoot = appUrls.signup();
+
+export const questionsUrlsRoot = appUrls.questions();
 
 

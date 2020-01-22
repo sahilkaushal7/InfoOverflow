@@ -4,7 +4,7 @@ import * as actions from '../../../../store/actions/auth';
 import { State, DispatchType } from '../../../../store/types';
 import cn from 'classnames';
 import { IOLink } from '../../../../lib/elements';
-import { mainUrlsRoot, loginUrlsRoot, blogsUrlsRoot, userUrls } from '../../../urls';
+import { mainUrlsRoot, loginUrlsRoot, blogsUrlsRoot, userUrls, questionsUrlsRoot } from '../../../urls';
 import ReactToolTip from 'react-tooltip';
 
 enum ToolTipIDs {
@@ -13,6 +13,7 @@ enum ToolTipIDs {
   'HOME' = 'Home',
   'BLOGS' = 'Blogs',
   'PROFILE' = 'Profile',
+  'QUESTIONS' = 'Questions',
 }
 
 interface ToolTipProps {
@@ -94,6 +95,16 @@ class Header extends React.Component<HeaderProps, HeaderState> {
               className={cn('fa', 'fa-rss')}
               data-tip={ToolTipIDs.BLOGS}
               data-for={ToolTipIDs.BLOGS}
+            />
+          </IOLink>}
+        </div>
+        <div>{isAuthenticated &&
+          <IOLink {...sharedProps} to={questionsUrlsRoot}>
+            <ToolTip id={ToolTipIDs.QUESTIONS} />
+            <i
+              className={cn('fa', 'fa-comments')}
+              data-tip={ToolTipIDs.QUESTIONS}
+              data-for={ToolTipIDs.QUESTIONS}
             />
           </IOLink>}
         </div>

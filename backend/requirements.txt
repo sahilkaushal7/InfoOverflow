@@ -7,3 +7,4 @@ sqlparse==0.3.0
 django-cors-headers==3.2.0
 pillow==6.2.1
 djangorestframework-camel-case==1.1.2
+django-multiselectfield==0.1.11

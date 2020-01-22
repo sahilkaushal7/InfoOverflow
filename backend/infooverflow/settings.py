@@ -39,9 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
     'blogs.apps.BlogsConfig',
+    'questions.apps.QuestionsConfig',
     'corsheaders',
     'rest_framework',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'multiselectfield',
 ]
 
 MIDDLEWARE = [

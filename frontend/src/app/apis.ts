@@ -5,4 +5,5 @@ export const Endpoints = {
   USERS: makeApiPath('users/list/'),
   USERSPROFILE: makeApiPath('users/userprofile'),
   BLOGS: makeApiPath('blogs'),
+  QUESTIONS: makeApiPath('questions/list'),
 }

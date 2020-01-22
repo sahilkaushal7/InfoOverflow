@@ -6,11 +6,19 @@ import Login from './views/Login';
 import { State, DispatchType } from '../store/types';
 import * as actions from '../store/actions/auth';
 import { connect } from 'react-redux';
-import User from './views/User';
-import { SignUp } from './views/SignUp';
 import { RouteComponentProps } from 'react-router';
+import { SignUp } from './views/SignUp';
+import User from './views/User';
 import Blogs from './views/Blogs';
-import { mainUrlsRoot, loginUrlsRoot, blogsUrlsRoot, userUrlsRoot, signupUrlsRoot } from './urls';
+import Questions from './views/Questions';
+import {
+  mainUrlsRoot,
+  loginUrlsRoot,
+  blogsUrlsRoot,
+  userUrlsRoot,
+  signupUrlsRoot,
+  questionsUrlsRoot
+} from './urls';
 
 interface PrivateRoute extends RouteProps {
   component?: any;
@@ -61,6 +69,12 @@ class BaseRouter extends React.Component<BaseRouterProps, BaseRouterState> {
             isAuth={isAuthenticated}
             path={blogsUrlsRoot}
             render={() => <Blogs />}
+            isLoading={isLoading}
+          />
+          <PrivateRoute
+            isAuth={isAuthenticated}
+            path={questionsUrlsRoot}
+            render={() => <Questions />}
             isLoading={isLoading}
           />
           <Route exact path={mainUrlsRoot} component={Landing} />
