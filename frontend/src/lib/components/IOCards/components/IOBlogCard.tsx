@@ -19,7 +19,7 @@ export const IOBlogCard: React.FC<IOBlogCardProps> = ({ blog: {
         <img src={image} alt={'blog-profile'}/>
       </div>
       <b>{title}</b>
-      <b>{user}</b>
+      <b>{user.name}</b>
       <p>{description}</p>
     </div>
   )

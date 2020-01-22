@@ -50,8 +50,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class UserProfileManager(models.Manager):
     def create_user_profile(self, user):
-        user_profile = self.create(user=user)
-        # do something with the book
+        user_profile = self.create(user=user, first_name=user.name)
         return user_profile
 
 
@@ -59,7 +58,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     avatar = models.ImageField(upload_to='images/', null=True, blank=True)
-    status_text = models.CharField(max_length=50, null=True, blank=True, default='Hello')
+    status_text = models.CharField(max_length=50, null=True, blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
     first_name = models.CharField(max_length=50, null=True, blank=True)
     last_name = models.CharField(max_length=50, null=True, blank=True)

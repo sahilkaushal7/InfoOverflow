@@ -3,11 +3,11 @@
 .io-card {
   display: flex;
   flex-direction: column;
-  background: $header-color;
+  background: white;
   padding: $container-border-width;
   border-radius: $container-border-width;
   align-items: center;
-  box-shadow: 0 0 3px 0 $primary;
+  box-shadow: 0 0 3px 0 $border-color;
 }
 
 .io-blog-card {
@@ -27,6 +27,16 @@
   }
 
   & > P {
+    line-height: 20px;
+    max-height: 100px;
+    overflow: hidden;
+  }
+}
+
+.io-question-card {
+  height: 100%;
+
+  & > p {
     line-height: 20px;
     max-height: 100px;
     overflow: hidden;

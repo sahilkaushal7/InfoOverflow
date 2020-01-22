@@ -6,6 +6,8 @@ import { IOCard } from '../../../../../lib/components/IOCards';
 import { IOInput } from '../../../../../lib/elements/IOInput';
 import { UserProfile } from '../../../../types';
 
+export const DEFAULT_PROFILE_IMAGE_URL = 'https://i.ibb.co/C6nX9H7/download.png';
+
 interface UserAccountProps {
   logout: () => void;
   urlParams: {
@@ -73,7 +75,7 @@ const Profile: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
               <i className={cn('fa', 'fa-pencil')} /> Edit Profile
             </p>
           </div>
-          {userProfile && userProfile.avatar && <div
+          {<div
             className={cn('io-userprofile__card-image', 'io-clickable')}
             onMouseOver={() => setMouseOverImage(true)}
             onMouseLeave={() => setMouseOverImage(false)}
@@ -91,7 +93,10 @@ const Profile: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
                   onClick={() => (imageInputRef.current as HTMLInputElement).click()}
                 />
               </div>}
-            <img src={userProfile.avatar} alt={'user_avatar'} />
+            <img
+              src={userProfile && userProfile.avatar ? userProfile.avatar : DEFAULT_PROFILE_IMAGE_URL}
+              alt={'user_avatar'}
+            />
           </div>}
           <div className={cn('io-userprofile__card-details')}>
             {editing ?
@@ -109,7 +114,8 @@ const Profile: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
                   placeholder={'Last name'}
                 />
               </div>
-              : <b>{userProfile && userProfile.firstName} {userProfile && userProfile.lastName}</b>}
+              : <>{userProfile.firstName && <b>{userProfile.firstName}</b>} {userProfile.lastName && <b>{userProfile.lastName}</b>}</>
+            }
             <br />
             {editing ?
               <div>
@@ -126,10 +132,10 @@ const Profile: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
                   placeholder={'Country'}
                 />
               </div> :
-              <>{userProfile && userProfile.city}, {userProfile && userProfile.country}</>}
+              <>{userProfile.city && userProfile.city}{userProfile.country && `, ${userProfile.country}`}</>}
           </div>
           <div className={cn('io-userprofile__card-summary')}>
-            <div>
+            {(editing || userProfile.jobProfile) && <div>
               <span><i className={cn('fa', 'fa-briefcase')} /><b>Profile :</b></span>
               <span>
                 {editing
@@ -139,10 +145,10 @@ const Profile: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
                     onChange={updateField('jobProfile')}
                     placeholder={'Job profile'}
                   />
-                  : <>{userProfile && userProfile.jobProfile}</>}
+                  : <>{userProfile.jobProfile && userProfile.jobProfile}</>}
               </span>
-            </div>
-            <div>
+            </div>}
+            {(editing || userProfile.statusText) && <div>
               <span><i className={cn('fa', 'fa-newspaper-o')} /><b>Status :</b></span>
               <span>{editing
                 ? <IOInput
@@ -151,8 +157,8 @@ const Profile: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
                   onChange={updateField('statusText')}
                   placeholder={'Status'}
                 />
-                : <>{userProfile && userProfile.statusText}</>}</span>
-            </div>
+                : <>{userProfile.statusText && userProfile.statusText}</>}</span>
+            </div>}
           </div>
           {editing && <IOInput type={'submit'} value={'Update'} />}
           {editing && <p> <IOInput type={'button'} value={'Cancel'} onClick={() => setEditing(false)} /></p>}

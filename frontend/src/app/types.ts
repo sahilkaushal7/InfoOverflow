@@ -1,8 +1,14 @@
 export interface Blog {
-  user: number;
+  user: User;
   title: string;
   description: string;
   image: string;
+}
+
+export interface User {
+  email: string;
+  name: string;
+  id: number;
 }
 
 export interface UserProfile {
@@ -15,4 +21,12 @@ export interface UserProfile {
   country: string;
   jobProfile: string;
   [key: string]: string | Blob;
+}
+
+export interface Question {
+  title: string;
+  description: string;
+  user: User;
+  createdOn: string;
+  tags: string;
 }
