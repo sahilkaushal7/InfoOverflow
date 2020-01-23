@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { blogsUrls } from '../../urls';
 import { Blogs } from './components/AllBlogs';
 import { PersonalBlogs } from './components/Personal';
+import { CreateBlog } from './components/CreateBlog';
 
 interface PropsFromDispatch { }
 
@@ -25,6 +26,7 @@ class UserRoute extends React.Component<UserRouteProps, UserRouteState> {
       <Switch>
         <Route exact path={blogsUrls.landing()} render={(props: RouteComponentProps) => <Blogs userId={userId} />} />
         <Route exact path={blogsUrls.myblogs()} render={(props: RouteComponentProps) => <PersonalBlogs urlParams={props.match.params} />} />
+        <Route exact path={blogsUrls.createNewBlog()} render={(props: RouteComponentProps) => <CreateBlog userId={userId} />} />
       </Switch>)
   }
 }

@@ -35,6 +35,7 @@ const Profile: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
   };
 
   const updateDetails = (e: any) => {
+    e.preventDefault();
     const userId = urlParams.id;
     const form_data = new FormData();
     if (userAvatar) {

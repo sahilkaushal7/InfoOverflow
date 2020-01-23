@@ -1,8 +1,17 @@
+
+
 export interface Blog {
   user: User;
   title: string;
   description: string;
   image: string;
+}
+
+export interface PostBlog {
+  user: number;
+  title: string;
+  description: string;
+  image: any;
 }
 
 export interface User {

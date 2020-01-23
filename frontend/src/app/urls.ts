@@ -12,6 +12,7 @@ export const mainUrlsRoot = appUrls.root();
 export const blogsUrlsRoot = appUrls.blogs();
 
 export const blogsUrls = {
+  createNewBlog: () => `${blogsUrlsRoot}/create`,
   myblogs: (blogId = ':id') => `${blogsUrlsRoot}/myblogs/${blogId}`,
   landing: () => blogsUrlsRoot
 }

@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Blog } from '../../../../types';
 import { getPersonalBlogs } from '../../requests';
 import { IOBlogCard } from '../../../../../lib/components/IOCards';
+import { IOLink } from '../../../../../lib/elements';
+import { blogsUrls } from '../../../../urls';
 
 interface PersonalBlogsProps {
   urlParams: {
@@ -10,7 +12,6 @@ interface PersonalBlogsProps {
 }
 
 export const PersonalBlogs: React.FC<PersonalBlogsProps> = ({ urlParams }) => {
-
   const [blogs, setBlogs] = React.useState<Blog[]>([] as Blog[]);
 
   React.useEffect(() => {
@@ -23,6 +24,7 @@ export const PersonalBlogs: React.FC<PersonalBlogsProps> = ({ urlParams }) => {
 
   return (
     <div>
+      <IOLink to={blogsUrls.createNewBlog()}>Create new blog</IOLink>
       {blogs.map((blog, i) => <IOBlogCard key={i} blog={blog} />)}
     </div>
   )
