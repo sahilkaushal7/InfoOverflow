@@ -1,5 +1,7 @@
 @import '../../../styles/abstracts/variables';
 
+$width-of-header: 56px;
+
 .io-ml {
   width: 100%;
   height: 100%;
@@ -11,6 +13,7 @@
 
 .io-ml__container {
   width: 100%;
+  max-width: calc(100% - (#{$width-of-header + (2 * $container-border-width)}));
   background: $bg-color;
   border-top-left-radius: $container-border-width;
   border-bottom-left-radius: $container-border-width;
@@ -18,7 +21,7 @@
 } 
 
 .io-ml__header {
-  width: auto;
+  width: $width-of-header;
   height: 100%;
   background: transparent;
 
