@@ -5,6 +5,7 @@ import { IOLink } from '../../../../../lib/elements';
 import { blogsUrls } from '../../../../urls';
 import { IOBlogCard } from '../../../../../lib/components/IOCards';
 import cn from 'classnames';
+import { IOHorizontalMenu } from '../../../../../lib/components/IOHorizontalMenu';
 
 interface BlogsProps {
   userId: number;
@@ -21,9 +22,10 @@ export const Blogs: React.FC<BlogsProps> = ({ userId }) => {
     <div className={cn('io-blogs__landing')}>
       <IOLink to={blogsUrls.myblogs(`${userId}`)}>Go To my blogs</IOLink>
       <br />
-      <div>
-        {blogs.map((blog, i) => <IOBlogCard key={i} blog={blog} />)}
-      </div>
+      <IOHorizontalMenu
+        menuItems={blogs}
+        renderMenuItem={(item: Blog) => <IOBlogCard blog={item} />}
+      />
     </div>
   )
 }

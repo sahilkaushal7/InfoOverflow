@@ -1,7 +1,6 @@
 import { get, post } from "../../../lib/utils/requests";
 import { Endpoints } from "../../apis";
 import { AxiosResponse } from 'axios';
-import { PostBlog } from "../../types";
 
 const getBlogs: () => Promise<AxiosResponse> = () => {
   return get(Endpoints.BLOGS, {}, true)

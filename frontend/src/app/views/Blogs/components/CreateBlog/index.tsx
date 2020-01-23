@@ -1,6 +1,6 @@
 import * as React from 'react';
 import ReactQuill from 'react-quill';
-import { PostBlog } from '../../../../types';
+import { Blog } from '../../../../types';
 import 'react-quill/dist/quill.snow.css';
 import { IOCard } from '../../../../../lib/components/IOCards';
 import { IOInput } from '../../../../../lib/elements/IOInput';
@@ -11,7 +11,7 @@ interface CreateBlogProps {
 }
 
 export const CreateBlog: React.FC<CreateBlogProps> = ({ userId }) => {
-  const [blog, setBlog] = React.useState({} as PostBlog);
+  const [blog, setBlog] = React.useState({} as Blog);
 
   const handleDescriptionChange = (value: string) => {
     setBlog({

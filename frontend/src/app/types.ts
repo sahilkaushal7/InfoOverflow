@@ -7,13 +7,6 @@ export interface Blog {
   image: string;
 }
 
-export interface PostBlog {
-  user: number;
-  title: string;
-  description: string;
-  image: any;
-}
-
 export interface User {
   email: string;
   name: string;
