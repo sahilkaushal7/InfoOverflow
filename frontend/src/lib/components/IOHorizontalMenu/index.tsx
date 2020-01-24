@@ -12,26 +12,65 @@ interface IOHorizontalMenuProps {
 
 export const IOHorizontalMenu: React.FC<IOHorizontalMenuProps> = ({ menuItems, renderMenuItem, numOfCards, gutterWidth }) => {
   const [scrollWidth, setScrollWidth] = React.useState(0);
-  // const [leftScrollable, setLeftScrollable] = React.useState(false);
-  // const [rightScrollable, setRightScrollable] = React.useState(true);
+  const [widthOfContainer, setWidthOfContainer] = React.useState(0);
+  const [leftScrollable, setLeftScrollable] = React.useState(false);
+  const [rightScrollable, setRightScrollable] = React.useState(true);
   const innerMenuRef = React.useRef({} as HTMLDivElement);
+
+  const roundedPositiveScrollWidth = Math.round(-scrollWidth);
+
+  const checkLeftScrollable = () => {
+    if (Math.round(scrollWidth) < 0) {
+      setLeftScrollable(true);
+    } else {
+      setLeftScrollable(false);
+    }
+  }
+
+  const checkRightScrollable = (widthOfInnerMenu: number) => {
+    if (roundedPositiveScrollWidth < widthOfInnerMenu - widthOfContainer) {
+      setRightScrollable(true);
+    } else {
+      setRightScrollable(false);
+    }
+  }
+
+  React.useEffect(() => {
+    const widthOfInnerMenu = innerMenuRef.current.offsetWidth;
+    if (widthOfInnerMenu) {
+      checkLeftScrollable();
+      checkRightScrollable(widthOfInnerMenu);
+    }
+  });
+
   const scrollLeft = (widthOfMenuItem: number) => {
     if (scrollWidth < 0) {
       setScrollWidth(scrollWidth + widthOfMenuItem)
     }
   }
 
-  const scrollRight = (widthOfContainer: number, widthOfMenuItem: number) => {
+  const scrollRight = (widthOfMenuItem: number) => {
     const widthOfInnerMenu = innerMenuRef.current.offsetWidth;
-    if (widthOfInnerMenu - widthOfContainer > Math.round(-scrollWidth)) {
+    if (widthOfInnerMenu - widthOfContainer > roundedPositiveScrollWidth) {
       setScrollWidth(scrollWidth - widthOfMenuItem)
     }
   }
+
   return (
     <SizeMe>
       {({ size }) => {
         const widthOfContainer = size.width!;
+        setWidthOfContainer(widthOfContainer);
         const widthOfMenuItem = widthOfContainer / numOfCards;
+        const disabledArrow = {
+          pointerEvents: 'none' as 'none',
+          opacity: '0.5',
+        }
+
+        const enabledArrow = {
+          pointerEvents: 'auto' as 'auto',
+          opacity: '1',
+        }
         return (
           <>
             <div className={cn('io-horizontal__menu')}>
@@ -53,10 +92,18 @@ export const IOHorizontalMenu: React.FC<IOHorizontalMenuProps> = ({ menuItems, r
               </div>
             </div>
             <div className={cn('io-horizontal__menu-arrows')}>
-              <div className={cn('io-horizontal__menu-arrow--left', 'io-clickable')} onClick={() => scrollLeft(widthOfMenuItem)}>
+              <div
+                style={leftScrollable ? enabledArrow : disabledArrow}
+                className={cn('io-horizontal__menu-arrow--left', 'io-clickable')}
+                onClick={() => scrollLeft(widthOfMenuItem)}
+              >
                 <i className={cn('fa', 'fa-chevron-left')} />
               </div>
-              <div className={cn('io-horizontal__menu-arrow--right', 'io-clickable')} onClick={() => scrollRight(widthOfContainer, widthOfMenuItem)}>
+              <div
+                style={rightScrollable ? enabledArrow : disabledArrow}
+                className={cn('io-horizontal__menu-arrow--right', 'io-clickable')}
+                onClick={() => scrollRight(widthOfMenuItem)}
+              >
                 <i className={cn('fa', 'fa-chevron-right')} />
               </div>
             </div>
