@@ -26,6 +26,7 @@ export const Blogs: React.FC<BlogsProps> = ({ userId }) => {
         menuItems={blogs}
         renderMenuItem={(item: Blog) => <IOBlogCard blog={item} />}
         numOfCards={4}
+        gutterWidth={'4px'}
       />
     </div>
   )

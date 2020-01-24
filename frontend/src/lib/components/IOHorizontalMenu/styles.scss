@@ -1,6 +1,5 @@
 .io-horizontal__menu {
   overflow: hidden;
-  padding: 10px;
 }
 
 .io-horizontal__innermenu {
@@ -8,12 +7,11 @@
   flex-direction: row;
   transform: translate3d(0px, 0px, 0px);
   transition: transform 0.7s ease 0s;
-  // width: 9900px;
+  width: 9900px;
   text-align: left;
   user-select: none;
 }
 
 .io-horizontal__innermenu-item { 
   display: inline-flex;
-  margin: 10px;
 }

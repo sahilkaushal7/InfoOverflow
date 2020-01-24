@@ -39,6 +39,16 @@ export const CreateBlog: React.FC<CreateBlogProps> = ({ userId }) => {
     }
   }
 
+  const modules = {
+    toolbar: [
+      [{ 'header': [1, 2, 3, false] }],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
+      ['link', 'image'],
+      ['clean'],
+    ],
+  };
+
   return (
     <IOCard>
       <form onSubmit={(e) => { updateDetails(e); return false; }}>
@@ -52,6 +62,7 @@ export const CreateBlog: React.FC<CreateBlogProps> = ({ userId }) => {
           value={blog.description || ''}
           onChange={handleDescriptionChange}
           placeholder={'Enter your description'}
+          modules={modules}
         />
         <IOInput
           type={'file'}
