@@ -1,5 +1,11 @@
+@import '../../../styles/abstracts/variables';
+
 .io-horizontal__menu {
   overflow: hidden;
+  display: flex;
+  -ms-scroll-snap-type: x mandatory;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
 }
 
 .io-horizontal__innermenu {
@@ -14,4 +20,21 @@
 
 .io-horizontal__innermenu-item { 
   display: inline-flex;
+}
+
+.io-horizontal__menu-arrows {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px auto;
+  width: 100px;
+}
+
+.io-horizontal__menu-arrow--left, .io-horizontal__menu-arrow--right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: 0 0 5px 0 $border-color;
 }

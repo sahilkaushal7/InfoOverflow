@@ -25,7 +25,7 @@ export const Blogs: React.FC<BlogsProps> = ({ userId }) => {
       <IOHorizontalMenu
         menuItems={blogs}
         renderMenuItem={(item: Blog) => <IOBlogCard blog={item} />}
-        numOfCards={4}
+        numOfCards={5}
         gutterWidth={'4px'}
       />
     </div>
