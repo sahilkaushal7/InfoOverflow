@@ -26,7 +26,6 @@ interface PrivateRoute extends RouteProps {
   isAuth: boolean;
   path: string;
   isLoading: boolean;
-  logout?: () => void;
 }
 
 const PrivateRoute = ({ component, isAuth, path, render, isLoading, ...rest }: PrivateRoute) => {
@@ -43,7 +42,6 @@ const PrivateRoute = ({ component, isAuth, path, render, isLoading, ...rest }: P
 interface PropsFromDispatch {
   userSignUp: (name: string, email: string, password: string) => void;
   userLogin: (email: string, password: string) => void;
-  logout: () => void;
 }
 
 interface PropsFromState {
@@ -57,7 +55,7 @@ interface BaseRouterState { }
 
 class BaseRouter extends React.Component<BaseRouterProps, BaseRouterState> {
   render() {
-    const { userLogin, isAuthenticated, isLoading, userSignUp, logout } = this.props;
+    const { userLogin, isAuthenticated, isLoading, userSignUp } = this.props;
     return (
       <MainLayout>
         <Switch>
@@ -66,7 +64,6 @@ class BaseRouter extends React.Component<BaseRouterProps, BaseRouterState> {
             component={User}
             isAuth={isAuthenticated}
             isLoading={isLoading}
-            logout={logout}
           />
           <PrivateRoute
             isAuth={isAuthenticated}
@@ -108,7 +105,6 @@ const mapDispatchToProps = (dispatch: DispatchType) => {
   return {
     userSignUp: (name: string, email: string, password: string) => (dispatch(actions.authSignUp(name, email, password))),
     userLogin: (email: string, password: string) => (dispatch(actions.authLogin(email, password))),
-    logout: () => dispatch(actions.authLogout()),
   }
 }
 

@@ -23,6 +23,7 @@ const Profile: React.FC<UserAccountProps> = ({ logout, urlParams }) => {
   const [editing, setEditing] = React.useState(false);
   const imageInputRef = React.useRef<HTMLInputElement>({} as HTMLInputElement);
 
+
   React.useEffect(() => {
     if (urlParams.id) {
       const userId = urlParams.id;
