@@ -1,6 +1,5 @@
 import * as React from 'react';
 import ReactQuill from 'react-quill';
-import { Blog } from '../../../../types';
 import 'react-quill/dist/quill.snow.css';
 import { IOCard } from '../../../../../lib/components/IOCards';
 import { IOInput } from '../../../../../lib/elements/IOInput';
@@ -11,13 +10,10 @@ interface CreateBlogProps {
 }
 
 export const CreateBlog: React.FC<CreateBlogProps> = ({ userId }) => {
-  const [blog, setBlog] = React.useState({} as Blog);
+  const [description, setDescription] = React.useState('');
 
   const handleDescriptionChange = (value: string) => {
-    setBlog({
-      ...blog,
-      description: value
-    })
+    setDescription(value);
   }
 
   const updateDetails = (e: any) => {
@@ -28,7 +24,7 @@ export const CreateBlog: React.FC<CreateBlogProps> = ({ userId }) => {
     let formData = new FormData();
     formData.append('user', String(userId));
     formData.append('title', title);
-    formData.append('description', blog.description)
+    formData.append('description', description)
 
     if (image) {
       formData.append('image', image, image.name);
@@ -54,12 +50,11 @@ export const CreateBlog: React.FC<CreateBlogProps> = ({ userId }) => {
       <form onSubmit={(e) => { updateDetails(e); return false; }}>
         <IOInput
           type={'text'}
-          value={blog.title}
           placeholder={'Title'}
           name={'title'}
         />
         <ReactQuill
-          value={blog.description || ''}
+          value={description || ''}
           onChange={handleDescriptionChange}
           placeholder={'Enter your description'}
           modules={modules}

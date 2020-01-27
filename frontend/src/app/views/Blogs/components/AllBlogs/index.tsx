@@ -6,6 +6,7 @@ import { blogsUrls } from '../../../../urls';
 import { IOBlogCard } from '../../../../../lib/components/IOCards';
 import cn from 'classnames';
 import { IOHorizontalMenu } from '../../../../../lib/components/IOHorizontalMenu';
+import ResponsiveRenderer from '../../../../../lib/renderProps/ResponsiveRenderer';
 
 interface BlogsProps {
   userId: number;
@@ -18,16 +19,24 @@ export const Blogs: React.FC<BlogsProps> = ({ userId }) => {
     getBlogs().then(res => setBlogs(res.data));
   }, [])
 
+  const sharedProps = {
+    menuItems: blogs,
+    renderMenuItem: (item: Blog) => <IOBlogCard blog={item} />,
+    gutterWidth: '4px',
+  }
+
   return (
     <div className={cn('io-blogs__landing')}>
       <IOLink to={blogsUrls.myblogs(`${userId}`)}>Go To my blogs</IOLink>
       <br />
-      <IOHorizontalMenu
-        menuItems={blogs}
-        renderMenuItem={(item: Blog) => <IOBlogCard blog={item} />}
-        numOfCards={5}
-        gutterWidth={'4px'}
-      />
+      {blogs.length > 0 &&
+        <ResponsiveRenderer
+          renderDesktop={() => <IOHorizontalMenu {...sharedProps} numOfCards={4} />}
+          renderLaptop={() => <IOHorizontalMenu {...sharedProps} numOfCards={3} />}
+          renderTablet={() => <IOHorizontalMenu {...sharedProps} numOfCards={2} />}
+          renderMobileLandscape={() => <IOHorizontalMenu {...sharedProps} numOfCards={1} />}
+        />
+      }
     </div>
   )
 }

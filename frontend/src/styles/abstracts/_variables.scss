@@ -1,9 +1,36 @@
 // sass Variables //
 
+// Windows width variables
+$min-mobile: 320px;
+$max-mobile: 480px;
+$min-mobile-landscape: 481px;
+$max-mobile-landscape: 767px;
+$min-tablet: 768px;
+$max-tablet: 1024px;
+$min-laptop: 1025px;
+$max-laptop: 1280px;
+$min-desktop: 1281px;
+
+// App colors
 $primary: #E73812;
 $bg-color: white;
 $header-color: #f9f9f9;
 $border-color: #CAABA3;
+
+// App spacings and borders
 $container-border-width: 15px;
 $small-border-radius: 5px;
 $border-radius: 8px;
+
+// Javascript exports
+:export {
+  minDesktop: $min-desktop;
+  maxLaptop: $max-laptop;
+  minLaptop: $min-laptop;
+  maxTablet: $max-tablet;
+  minTablet: $min-tablet;
+  maxMobileLandscape: $max-mobile-landscape;
+  minMobileLandscape: $min-mobile-landscape;
+  maxMobile: $max-mobile;
+  minMobile: $min-mobile;
+} 
