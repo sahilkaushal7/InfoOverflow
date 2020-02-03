@@ -18,6 +18,7 @@ const IOHorizontalMenu: React.FC<IOHorizontalMenuProps> = ({ menuItems, renderMe
   const [leftScrollable, setLeftScrollable] = React.useState(false);
   const [rightScrollable, setRightScrollable] = React.useState(true);
   const innerMenuRef = React.useRef({} as HTMLDivElement);
+  const [showArrows, setShowArrows] = React.useState(false);
   let widthOfContainer = size.width;
 
   const roundedPositiveScrollWidth = Math.round(-scrollWidth);
@@ -43,6 +44,12 @@ const IOHorizontalMenu: React.FC<IOHorizontalMenuProps> = ({ menuItems, renderMe
     if (widthOfInnerMenu) {
       checkLeftScrollable();
       checkRightScrollable(widthOfInnerMenu);
+    }
+
+    if (menuItems.length > numOfCards) {
+      setShowArrows(true);
+    } else {
+      setShowArrows(false);
     }
 
     window.addEventListener('resize', () => setScrollWidth(0));
@@ -96,7 +103,7 @@ const IOHorizontalMenu: React.FC<IOHorizontalMenuProps> = ({ menuItems, renderMe
           })}
         </div>
       </div>
-      <div className={cn('io-horizontal__menu-arrows')}>
+      {showArrows && <div className={cn('io-horizontal__menu-arrows')}>
         <div
           style={leftScrollable ? enabledArrow : disabledArrow}
           className={cn('io-horizontal__menu-arrow--left', 'io-clickable')}
@@ -111,7 +118,7 @@ const IOHorizontalMenu: React.FC<IOHorizontalMenuProps> = ({ menuItems, renderMe
         >
           <i className={cn('fa', 'fa-chevron-right')} />
         </div>
-      </div>
+      </div>}
     </>
   )
 }
