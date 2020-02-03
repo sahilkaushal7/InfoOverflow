@@ -26,6 +26,7 @@ export interface UserProfile {
 }
 
 export interface Question {
+  id: string;
   title: string;
   description: string;
   user: User;

@@ -23,27 +23,28 @@ const IOHorizontalMenu: React.FC<IOHorizontalMenuProps> = ({ menuItems, renderMe
 
   const roundedPositiveScrollWidth = Math.round(-scrollWidth);
 
-  const checkLeftScrollable = () => {
-    if (Math.round(scrollWidth) < 0) {
-      setLeftScrollable(true);
-    } else {
-      setLeftScrollable(false);
-    }
-  }
 
-  const checkRightScrollable = (widthOfInnerMenu: number) => {
-    if (roundedPositiveScrollWidth < widthOfInnerMenu - widthOfContainer) {
-      setRightScrollable(true);
-    } else {
-      setRightScrollable(false);
-    }
-  }
 
   React.useEffect(() => {
     const widthOfInnerMenu = innerMenuRef.current.offsetWidth;
+    const checkLeftScrollable = () => {
+      if (Math.round(scrollWidth) < 0) {
+        setLeftScrollable(true);
+      } else {
+        setLeftScrollable(false);
+      }
+    }
+
+    const checkRightScrollable = () => {
+      if (roundedPositiveScrollWidth < widthOfInnerMenu - widthOfContainer) {
+        setRightScrollable(true);
+      } else {
+        setRightScrollable(false);
+      }
+    }
     if (widthOfInnerMenu) {
       checkLeftScrollable();
-      checkRightScrollable(widthOfInnerMenu);
+      checkRightScrollable();
     }
 
     if (menuItems.length > numOfCards) {
@@ -56,7 +57,7 @@ const IOHorizontalMenu: React.FC<IOHorizontalMenuProps> = ({ menuItems, renderMe
     return () => {
       window.removeEventListener('resize', () => setScrollWidth(0))
     }
-  });
+  }, [menuItems.length, numOfCards, roundedPositiveScrollWidth, scrollWidth, widthOfContainer]);
 
   const scrollLeft = (widthOfMenuItem: number) => {
     if (scrollWidth < 0) {

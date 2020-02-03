@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'blogs.apps.BlogsConfig',
     'questions.apps.QuestionsConfig',
+    'answers.apps.AnswersConfig',
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',

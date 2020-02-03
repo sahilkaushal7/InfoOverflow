@@ -28,4 +28,8 @@ export const signupUrlsRoot = appUrls.signup();
 
 export const questionsUrlsRoot = appUrls.questions();
 
+export const questionUrls = {
+  questionDetails: (questionId = ':id') => `${questionsUrlsRoot}/details/${questionId}`,
+  landing: () => questionsUrlsRoot
+}
 
