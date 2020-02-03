@@ -5,8 +5,8 @@ import { IOLink } from '../../../../../lib/elements';
 import { blogsUrls } from '../../../../urls';
 import { IOBlogCard } from '../../../../../lib/components/IOCards';
 import cn from 'classnames';
-import { IOHorizontalMenu } from '../../../../../lib/components/IOHorizontalMenu';
 import ResponsiveRenderer from '../../../../../lib/renderProps/ResponsiveRenderer';
+import IOHorizontalMenu from '../../../../../lib/components/IOHorizontalMenu';
 
 interface BlogsProps {
   userId: number;

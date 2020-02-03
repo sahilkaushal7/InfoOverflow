@@ -4,8 +4,8 @@ import { getPersonalBlogs } from '../../requests';
 import { IOBlogCard } from '../../../../../lib/components/IOCards';
 import { IOLink } from '../../../../../lib/elements';
 import { blogsUrls } from '../../../../urls';
-import { IOHorizontalMenu } from '../../../../../lib/components/IOHorizontalMenu';
 import ResponsiveRenderer from '../../../../../lib/renderProps/ResponsiveRenderer';
+import IOHorizontalMenu from '../../../../../lib/components/IOHorizontalMenu';
 
 interface PersonalBlogsProps {
   urlParams: {
