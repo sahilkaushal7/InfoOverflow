@@ -18,6 +18,7 @@ $width-of-header: 56px;
   border-top-left-radius: $container-border-width;
   border-bottom-left-radius: $container-border-width;
   padding: $container-border-width;
+  overflow-y: scroll;
 } 
 
 .io-ml__header {

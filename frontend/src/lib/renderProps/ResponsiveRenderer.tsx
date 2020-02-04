@@ -85,9 +85,9 @@ const ResponsiveRenderer: React.FC<ResponsiveRendererProps> = ({
   }
 
   return (
-    <div>
+    <>
       {renderContent}
-    </div>
+    </>
   )
 }
 

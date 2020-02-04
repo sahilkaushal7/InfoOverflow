@@ -4,7 +4,6 @@ import { getBlogs } from '../../requests';
 import { IOLink } from '../../../../../lib/elements';
 import { blogsUrls } from '../../../../urls';
 import { IOBlogCard } from '../../../../../lib/components/IOCards';
-import cn from 'classnames';
 import ResponsiveRenderer from '../../../../../lib/renderProps/ResponsiveRenderer';
 import IOHorizontalMenu from '../../../../../lib/components/IOHorizontalMenu';
 
@@ -26,7 +25,7 @@ export const Blogs: React.FC<BlogsProps> = ({ userId }) => {
   }
 
   return (
-    <div className={cn('io-blogs__landing')}>
+    <div>
       <IOLink to={blogsUrls.myblogs(`${userId}`)}>Go To my blogs</IOLink>
       <br />
       {blogs.length > 0 &&

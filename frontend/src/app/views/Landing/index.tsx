@@ -6,6 +6,7 @@ import { getUsers } from './requests';
 import { AxiosResponse } from 'axios';
 import { UserProfile } from '../../types';
 import { DEFAULT_PROFILE_IMAGE_URL } from '../User/components/Profile';
+import ResponsiveRenderer from '../../../lib/renderProps/ResponsiveRenderer';
 
 export const Landing: React.FC = () => {
   const [users, setUsers] = React.useState([] as UserProfile[]);
@@ -28,13 +29,18 @@ export const Landing: React.FC = () => {
           <tbody>
             {users.map(({ firstName, lastName, jobProfile, avatar }, i) => (
               <tr key={i}>
-                <td>
-                  <img src={avatar ? avatar : DEFAULT_PROFILE_IMAGE_URL } alt={'user_avatar'} width={'50px'} height={'50px'} />
-                </td>
+                <ResponsiveRenderer
+                  renderMobile={() => null}
+                  renderDesktop={() => (
+                    <td>
+                      <img src={avatar ? avatar : DEFAULT_PROFILE_IMAGE_URL} alt={'user_avatar'} width={'50px'} height={'50px'} />
+                    </td>
+                  )}
+                />
                 <td>
                   <p>{firstName} {lastName}</p>
                 </td>
-                <td>{jobProfile ? jobProfile: 'NA'}</td>
+                <td>{jobProfile ? jobProfile : 'NA'}</td>
               </tr>
             ))}
           </tbody>

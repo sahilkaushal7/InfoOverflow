@@ -15,12 +15,12 @@
 
   .io-blog-card__img {
     height: 180px;
-    width: 180px;
     border-radius: 30px;
 
     & > img {
       height: 100%;
       width: 100%;
+      object-fit: cover;
       border-radius: inherit;
     }
   }
